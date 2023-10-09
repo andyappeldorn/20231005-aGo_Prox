@@ -210,7 +210,7 @@ void datastreamer_output(void)
 #endif
 #define SENSOR_LEN_INCHES 24
     /* position in inches */
-    u8temp_output = qtm_scroller_control1.qtm_scroller_data[count_bytes_out].scroller_status;
+    u8temp_output = qtm_scroller_control1.qtm_scroller_data[0].scroller_status;
     if (0u != (u8temp_output & 0x01)) { // if scroller state is true
 
         u16temp_output = qtm_scroller_control1.qtm_scroller_data[0].position;
