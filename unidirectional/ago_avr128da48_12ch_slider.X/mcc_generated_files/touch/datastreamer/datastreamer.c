@@ -208,6 +208,9 @@ void datastreamer_output(void)
 	}
 
 #endif
+    
+    u8temp_output = qtm_scroller_control1.qtm_scroller_data[count_bytes_out].position;      // calculate inches
+    datastreamer_transmit(u8temp_output);
 
 #if (FREQ_HOP_AUTO_MODULE_OUTPUT == 1)
 
