@@ -222,6 +222,9 @@ static void qtm_error_callback(uint8_t error)
 {
 	module_error_code = error + 1u;
 
+	#if DEF_TOUCH_DATA_STREAMER_ENABLE == 1
+	    datastreamer_output();
+	#endif
 }
 /*============================================================================
 void touch_init(void)
@@ -240,7 +243,7 @@ void touch_init(void)
 	touch_sensors_config();
 	
 #if DEF_TOUCH_DATA_STREAMER_ENABLE == 1
-    touchTuneInit();
+	datastreamer_init();
 #endif
 }
 /*============================================================================
@@ -309,14 +312,11 @@ void touch_process(void)
             measurement_done_touch = 1u;
         }
     #if DEF_TOUCH_DATA_STREAMER_ENABLE == 1
-        touchTuneNewDataAvailable();
+        datastreamer_output();
     #endif
     }
 
     
-#if DEF_TOUCH_DATA_STREAMER_ENABLE == 1
-	touchTuneProcess();
-#endif
 
 }
 uint8_t interrupt_cnt;

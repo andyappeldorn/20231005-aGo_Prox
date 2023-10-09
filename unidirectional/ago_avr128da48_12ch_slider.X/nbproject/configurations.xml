@@ -36,7 +36,7 @@
           <logicalFolder name="datastreamer"
                          displayName="datastreamer"
                          projectFiles="true">
-            <itemPath>mcc_generated_files/touch/datastreamer/tuner_avr.h</itemPath>
+            <itemPath>mcc_generated_files/touch/datastreamer/datastreamer.h</itemPath>
           </logicalFolder>
           <logicalFolder name="example" displayName="example" projectFiles="true">
             <itemPath>mcc_generated_files/touch/example/touch_example.h</itemPath>
@@ -87,7 +87,10 @@
           <logicalFolder name="datastreamer"
                          displayName="datastreamer"
                          projectFiles="true">
-            <itemPath>mcc_generated_files/touch/datastreamer/tuner_avr.c</itemPath>
+            <itemPath>mcc_generated_files/touch/datastreamer/datastreamer.c</itemPath>
+            <itemPath>mcc_generated_files/touch/datastreamer/03EB00000000000000AA5501.db</itemPath>
+            <itemPath>mcc_generated_files/touch/datastreamer/03EB00000000000000AA5501.ds</itemPath>
+            <itemPath>mcc_generated_files/touch/datastreamer/03EB00000000000000AA5501.sc</itemPath>
           </logicalFolder>
           <logicalFolder name="example" displayName="example" projectFiles="true">
             <itemPath>mcc_generated_files/touch/example/touch_example.c</itemPath>
