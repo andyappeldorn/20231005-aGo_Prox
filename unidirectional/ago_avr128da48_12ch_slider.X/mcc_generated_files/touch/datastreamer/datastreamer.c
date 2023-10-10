@@ -212,13 +212,11 @@ void datastreamer_output(void)
     /* position in inches */
     u8temp_output = qtm_scroller_control1.qtm_scroller_data[0].scroller_status;
     if (0u != (u8temp_output & 0x01)) { // if scroller state is true
-
         u16temp_output = qtm_scroller_control1.qtm_scroller_data[0].position;
         u8temp_output = (uint8_t) (u16temp_output & 0x00FFu);
         u8temp_output = (u8temp_output * 100 / 255); // percentage
         u8temp_output = u8temp_output * SENSOR_LEN_INCHES / 100; // percentage of sensor length
         datastreamer_transmit(u8temp_output);
-
     } else {    // if scroller state is false
         datastreamer_transmit(0x00);
     }
