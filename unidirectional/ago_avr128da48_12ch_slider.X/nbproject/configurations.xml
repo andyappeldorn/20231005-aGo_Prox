@@ -51,12 +51,13 @@
           <itemPath>mcc_generated_files/touch/touch.h</itemPath>
         </logicalFolder>
         <logicalFolder name="uart" displayName="uart" projectFiles="true">
-          <itemPath>mcc_generated_files/uart/uart_types.h</itemPath>
           <itemPath>mcc_generated_files/uart/uart_drv_interface.h</itemPath>
           <itemPath>mcc_generated_files/uart/usart1.h</itemPath>
+          <itemPath>mcc_generated_files/uart/uart_types.h</itemPath>
         </logicalFolder>
       </logicalFolder>
       <itemPath>touch_iir.h</itemPath>
+      <itemPath>amazon.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -87,10 +88,10 @@
           <logicalFolder name="datastreamer"
                          displayName="datastreamer"
                          projectFiles="true">
-            <itemPath>mcc_generated_files/touch/datastreamer/datastreamer.c</itemPath>
-            <itemPath>mcc_generated_files/touch/datastreamer/03EB00000000000000AA5501.db</itemPath>
             <itemPath>mcc_generated_files/touch/datastreamer/03EB00000000000000AA5501.ds</itemPath>
             <itemPath>mcc_generated_files/touch/datastreamer/03EB00000000000000AA5501.sc</itemPath>
+            <itemPath>mcc_generated_files/touch/datastreamer/03EB00000000000000AA5501.db</itemPath>
+            <itemPath>mcc_generated_files/touch/datastreamer/datastreamer.c</itemPath>
           </logicalFolder>
           <logicalFolder name="example" displayName="example" projectFiles="true">
             <itemPath>mcc_generated_files/touch/example/touch_example.c</itemPath>

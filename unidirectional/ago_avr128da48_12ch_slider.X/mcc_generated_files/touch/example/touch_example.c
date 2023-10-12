@@ -533,4 +533,688 @@ uint16_t scroller_position = 0u;
             break;
         }
     }
+    scroller_status = get_scroller_state(12);
+    scroller_position = get_scroller_position(12);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(13);
+    scroller_position = get_scroller_position(13);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(14);
+    scroller_position = get_scroller_position(14);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(15);
+    scroller_position = get_scroller_position(15);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(16);
+    scroller_position = get_scroller_position(16);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(17);
+    scroller_position = get_scroller_position(17);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(18);
+    scroller_position = get_scroller_position(18);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(19);
+    scroller_position = get_scroller_position(19);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(20);
+    scroller_position = get_scroller_position(20);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(21);
+    scroller_position = get_scroller_position(21);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(22);
+    scroller_position = get_scroller_position(22);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(23);
+    scroller_position = get_scroller_position(23);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(24);
+    scroller_position = get_scroller_position(24);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(25);
+    scroller_position = get_scroller_position(25);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(26);
+    scroller_position = get_scroller_position(26);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(27);
+    scroller_position = get_scroller_position(27);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(28);
+    scroller_position = get_scroller_position(28);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(29);
+    scroller_position = get_scroller_position(29);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
+    scroller_status = get_scroller_state(30);
+    scroller_position = get_scroller_position(30);
+    //Example: 8 bit scroller resolution. Modify as per requirement.
+    scroller_position = scroller_position  >> 5;
+    //LED_OFF
+     if ( 0u != scroller_status) {
+        switch (scroller_position) {
+        case 0:
+            //LED0_ON
+            break;
+        case 1:
+            //LED1_ON
+            break;
+        case 2:
+            //LED2_ON
+            break;
+        case 3:
+            //LED3_ON
+            break;
+        case 4:
+            //LED4_ON
+            break;
+        case 5:
+            //LED5_ON
+            break;
+        case 6:
+            //LED6_ON
+            break;
+        case 7:
+            //LED7_ON
+            break;
+        default:
+            //LED_OFF
+            break;
+        }
+    }
 }
