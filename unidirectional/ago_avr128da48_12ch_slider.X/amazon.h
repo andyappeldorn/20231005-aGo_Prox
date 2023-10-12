@@ -35,5 +35,10 @@
 #define SENSOR_LEN_INCHES 24
 #define NUMBER_OF_SENSORS 10
 
+/* Defines to set all sensor params at once by changing here */
+#define A_GAIN GAIN_2
+#define D_GAIN GAIN_8
+#define COMMON_FILTER_LEVEL FILTER_LEVEL_32
+
 #endif	/* AMAZON_H */
 

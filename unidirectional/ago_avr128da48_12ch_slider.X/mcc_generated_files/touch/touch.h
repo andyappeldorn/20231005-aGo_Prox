@@ -51,6 +51,7 @@
  *----------------------------------------------------------------------------*/
 
 #include "include/touch_api_ptc.h"
+#include "../../amazon.h"
 
 /**********************************************************/
 /******************* Acquisition controls *****************/
@@ -99,11 +100,6 @@
 
 #define DEF_NUM_CHANNELS (31)
 
-/* Defines to set all sensor params at once by changing here */
-#define A_GAIN GAIN_2
-#define D_GAIN GAIN_8
-#define COMMON_FILTER_LEVEL FILTER_LEVEL_32
-
 
 /* Defines node parameter setting
  * {X-line, Y-line, Charge Share Delay(CSD), NODE_RSEL_PRSC(series resistor, prescaler), NODE_G(Analog Gain , Digital Gain),
@@ -111,127 +107,127 @@
  */
 #define NODE_0_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(0), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(0), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_1_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(1), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(1), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_2_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(2), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(2), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_3_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(3), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(3), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_4_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(4), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(4), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_5_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(5), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(5), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_6_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(6), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(6), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_7_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(7), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(7), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_8_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(8), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(8), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_9_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(9), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(9), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_10_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(10), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(10), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_11_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(11), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(11), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_12_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(12), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(12), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_13_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(13), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(13), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_14_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(16), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(16), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_15_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(17), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(17), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_16_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(18), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(18), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_17_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(19), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(19), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_18_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(20), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(20), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_19_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(21), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(21), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_20_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(22), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(22), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_21_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(23), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(23), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_22_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(24), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(24), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_23_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(25), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(25), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_24_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(26), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(26), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_25_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(27), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(32)|Y(33)|Y(34)|Y(35)|Y(36),  Y(27), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_26_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(33)|Y(34)|Y(35)|Y(36),  Y(32), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(33)|Y(34)|Y(35)|Y(36),  Y(32), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_27_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(34)|Y(35)|Y(36),  Y(33), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(34)|Y(35)|Y(36),  Y(33), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_28_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(35)|Y(36),  Y(34), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(35)|Y(36),  Y(34), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_29_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(36),  Y(35), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(36),  Y(35), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_30_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35),  Y(36), 15, PRSC_DIV_SEL_8, NODE_GAIN(GAIN_2, GAIN_8), FILTER_LEVEL_16                  \
+   Y(37)|Y(0)|Y(1)|Y(2)|Y(3)|Y(4)|Y(5)|Y(6)|Y(7)|Y(8)|Y(9)|Y(10)|Y(11)|Y(12)|Y(13)|Y(16)|Y(17)|Y(18)|Y(19)|Y(20)|Y(21)|Y(22)|Y(23)|Y(24)|Y(25)|Y(26)|Y(27)|Y(32)|Y(33)|Y(34)|Y(35),  Y(36), 15, PRSC_DIV_SEL_8, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 
 /**********************************************************/
@@ -445,7 +441,7 @@
   	                                  \
 #define SCROLLER_0_PARAMS                  \
 {                                                                                                              \
-     SCROLLER_TYPE_SLIDER, 0, 31,                            \
+     SCROLLER_TYPE_SLIDER, 0, NUMBER_OF_SENSORS,                            \
 		SCROLLER_RESOL_DEADBAND(SCR_RESOL_8_BIT, SCR_DB_1_PERCENT), 8, 20\
 }
 
