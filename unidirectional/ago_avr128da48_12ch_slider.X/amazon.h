@@ -31,14 +31,18 @@
 #ifndef AMAZON_H
 #define	AMAZON_H
 
-// use the defines below to change params used by this project
+/* use the defines below to set sensor parameters */
 #define SENSOR_LEN_INCHES 24
 #define NUMBER_OF_SENSORS 10
 
 /* Defines to set all sensor params at once by changing here */
-#define A_GAIN GAIN_2
-#define D_GAIN GAIN_8
-#define COMMON_FILTER_LEVEL FILTER_LEVEL_32
+
+/* Gain setting can be GAIN_1, GAIN_2, GAIN_4, GAIN_8, GAIN_16 */
+#define A_GAIN GAIN_2       // Analog Gain
+#define D_GAIN GAIN_8       // Digital Gain
+
+/* Digital Oversampling can be FILTER_LEVEL_1, 2, 4, 8, 16, 32, 64 */
+#define COMMON_FILTER_LEVEL FILTER_LEVEL_32     // 
 
 #endif	/* AMAZON_H */
 
