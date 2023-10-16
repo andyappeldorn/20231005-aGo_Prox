@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>ago_avr128da48_12ch_slider</name>
+            <name>ago_avr128da48_6ch_29in</name>
             <creation-uuid>ae6eada4-8274-4715-8751-7f7914c04c8c</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

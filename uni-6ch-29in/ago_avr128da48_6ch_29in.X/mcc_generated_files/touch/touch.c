@@ -96,7 +96,7 @@ qtm_acq_node_group_config_t ptc_qtlib_acq_gen1
 qtm_acq_node_data_t ptc_qtlib_node_stat1[DEF_NUM_CHANNELS];
 
 /* Node configurations */
-qtm_acq_avr_da_node_config_t ptc_seq_node_cfg1[DEF_NUM_CHANNELS] = { NODE_0_PARAMS, NODE_1_PARAMS, NODE_2_PARAMS, NODE_3_PARAMS, NODE_4_PARAMS, NODE_5_PARAMS, NODE_6_PARAMS, NODE_7_PARAMS, NODE_8_PARAMS, NODE_9_PARAMS, NODE_10_PARAMS, NODE_11_PARAMS, NODE_12_PARAMS, NODE_13_PARAMS, NODE_14_PARAMS, NODE_15_PARAMS, NODE_16_PARAMS, NODE_17_PARAMS, NODE_18_PARAMS, NODE_19_PARAMS, NODE_20_PARAMS, NODE_21_PARAMS, NODE_22_PARAMS, NODE_23_PARAMS, NODE_24_PARAMS, NODE_25_PARAMS, NODE_26_PARAMS, NODE_27_PARAMS, NODE_28_PARAMS, NODE_29_PARAMS,NODE_30_PARAMS};
+qtm_acq_avr_da_node_config_t ptc_seq_node_cfg1[DEF_NUM_CHANNELS] = { NODE_0_PARAMS, NODE_1_PARAMS, NODE_2_PARAMS, NODE_3_PARAMS, NODE_4_PARAMS,NODE_5_PARAMS};
 
 /* Container */
 qtm_acquisition_control_t qtlib_acq_set1 = {&ptc_qtlib_acq_gen1, &ptc_seq_node_cfg1[0], &ptc_qtlib_node_stat1[0]};
@@ -121,7 +121,7 @@ qtm_touch_key_group_data_t qtlib_key_grp_data_set1;
 qtm_touch_key_data_t qtlib_key_data_set1[DEF_NUM_SENSORS];
 
 /* Key Configurations */
-qtm_touch_key_config_t qtlib_key_configs_set1[DEF_NUM_SENSORS] = { KEY_0_PARAMS, KEY_1_PARAMS, KEY_2_PARAMS, KEY_3_PARAMS, KEY_4_PARAMS, KEY_5_PARAMS, KEY_6_PARAMS, KEY_7_PARAMS, KEY_8_PARAMS, KEY_9_PARAMS, KEY_10_PARAMS, KEY_11_PARAMS, KEY_12_PARAMS, KEY_13_PARAMS, KEY_14_PARAMS, KEY_15_PARAMS, KEY_16_PARAMS, KEY_17_PARAMS, KEY_18_PARAMS, KEY_19_PARAMS, KEY_20_PARAMS, KEY_21_PARAMS, KEY_22_PARAMS, KEY_23_PARAMS, KEY_24_PARAMS, KEY_25_PARAMS, KEY_26_PARAMS, KEY_27_PARAMS, KEY_28_PARAMS, KEY_29_PARAMS,KEY_30_PARAMS}; 
+qtm_touch_key_config_t qtlib_key_configs_set1[DEF_NUM_SENSORS] = { KEY_0_PARAMS, KEY_1_PARAMS, KEY_2_PARAMS, KEY_3_PARAMS, KEY_4_PARAMS,KEY_5_PARAMS}; 
 /* Container */
 qtm_touch_key_control_t qtlib_key_set1
     = {&qtlib_key_grp_data_set1, &qtlib_key_grp_config_set1, &qtlib_key_data_set1[0], &qtlib_key_configs_set1[0]};

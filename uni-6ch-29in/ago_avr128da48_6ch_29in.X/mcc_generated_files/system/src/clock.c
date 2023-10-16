@@ -47,8 +47,8 @@ void CLOCK_Initialize(void)
     //EXTS disabled; OSCHFS disabled; OSC32KS disabled; PLLS disabled; SOSC disabled; XOSC32KS disabled; 
     ccp_write_io((void*)&(CLKCTRL.MCLKSTATUS),0x0);
 
-    //AUTOTUNE disabled; FRQSEL 24 MHz system clock; RUNSTDBY disabled; 
-    ccp_write_io((void*)&(CLKCTRL.OSCHFCTRLA),0x24);
+    //AUTOTUNE disabled; FRQSEL 16 MHz system clock; RUNSTDBY disabled; 
+    ccp_write_io((void*)&(CLKCTRL.OSCHFCTRLA),0x1C);
 
     //TUNE 0x0; 
     ccp_write_io((void*)&(CLKCTRL.OSCHFTUNE),0x0);

@@ -23,7 +23,8 @@
  * File:   amazon.h
  * Author: ScottC
  * Comments: custom .h file for Amazon shelf proximity project
- * Revision history: Rev 1 10-11-2023
+ * Revision history:    Rev 1 10-11-2023
+ *                      Rev 2 10-16-2023
  */
 
 // This is a guard condition so that contents of this file are not included
@@ -31,16 +32,12 @@
 #ifndef AMAZON_H
 #define	AMAZON_H
 
-/* use the defines below to set sensor parameters */
-#define SENSOR_LEN_INCHES 24
-#define NUMBER_OF_SENSORS 10
+#define SENSOR_LEN_INCHES 29    // length of sensor strip in inches
 
-/* Defines to set all sensor params at once by changing here */
-
+/* Defines to set params for all sensors by changing here */
 /* Gain setting can be GAIN_1, GAIN_2, GAIN_4, GAIN_8, GAIN_16 */
-#define A_GAIN GAIN_2       // Analog Gain
-#define D_GAIN GAIN_8       // Digital Gain
-
+#define A_GAIN GAIN_2           // Analog Gain
+#define D_GAIN GAIN_8           // Digital Gain
 /* Digital Oversampling can be FILTER_LEVEL_1, 2, 4, 8, 16, 32, 64 */
 #define COMMON_FILTER_LEVEL FILTER_LEVEL_32     // 
 
