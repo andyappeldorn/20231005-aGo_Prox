@@ -241,7 +241,7 @@
 #define SCROLLER_0_PARAMS                  \
 {                                                                                                              \
      SCROLLER_TYPE_SLIDER, 0, 6,                            \
-		SCROLLER_RESOL_DEADBAND(SCR_RESOL_8_BIT, SCR_DB_1_PERCENT), 8, 20\
+		SCROLLER_RESOL_DEADBAND(SCR_RESOL_8_BIT, SCR_DB_1_PERCENT), 8, 30\
 }
 
 
