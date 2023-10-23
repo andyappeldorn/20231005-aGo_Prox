@@ -237,10 +237,10 @@
  * size of the touch when moved over the scroller. The contact size of the moving touch can be observed from
  * "contact_size" parameter on scroller runtime data structure.
  */
-  	                                  \
-#define SCROLLER_0_PARAMS                  \
-{                                                                                                              \
-     SCROLLER_TYPE_SLIDER, 0, 6,                            \
+  	                                \
+#define SCROLLER_0_PARAMS           \
+{                                   \
+     SCROLLER_TYPE_SLIDER, 0, 6,    \
 		SCROLLER_RESOL_DEADBAND(SCR_RESOL_8_BIT, SCR_DB_1_PERCENT), 8, 30\
 }
 
