@@ -278,6 +278,19 @@
 
 
 
+/**********************************************************/
+/********* Frequency Hop Module ****************/
+/**********************************************************/
+
+/* sets the frequency steps for hop.
+ * Range: 3 to 7.
+ * Default value: 3
+ */
+#define NUM_FREQ_STEPS 3
+
+/* PTC Sampling Delay Selection - 0 to 15 PTC CLK cycles */
+#define DEF_MEDIAN_FILTER_FREQUENCIES FREQ_SEL_1,FREQ_SEL_3,FREQ_SEL_7
+
 
 /**********************************************************/
 /***************** Communication - Data Streamer ******************/

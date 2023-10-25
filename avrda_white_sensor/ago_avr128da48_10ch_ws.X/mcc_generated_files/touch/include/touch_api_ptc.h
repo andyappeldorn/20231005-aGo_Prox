@@ -50,6 +50,7 @@ extern "C" {
 #include "qtm_common_components_api.h"
 #include "qtm_acq_avr_da_0x0037_api.h"
 #include "qtm_touch_key_0x0002_api.h"
+#include "qtm_freq_hop_0x0006_api.h"
 #include "qtm_scroller_0x000b_api.h"
 
 /*----------------------------------------------------------------------------
