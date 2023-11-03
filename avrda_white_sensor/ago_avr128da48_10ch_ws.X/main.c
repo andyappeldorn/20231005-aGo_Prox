@@ -1,4 +1,4 @@
- /*
+/*
  * MAIN Generated Driver File
  * 
  * @file main.c
@@ -8,7 +8,7 @@
  * @brief This is the generated driver implementation file for the MAIN driver.
  *
  * @version MAIN Driver Version 1.0.0
-*/
+ */
 
 /*
 © [2023] Microchip Technology Inc. and its subsidiaries.
@@ -29,32 +29,62 @@
     TOTAL LIABILITY ON ALL CLAIMS RELATED TO THE SOFTWARE WILL NOT 
     EXCEED AMOUNT OF FEES, IF ANY, YOU PAID DIRECTLY TO MICROCHIP FOR 
     THIS SOFTWARE.
-*/
+ */
 #include "mcc_generated_files/system/system.h"
 
 /*
     Main application
-*/
+ */
 
 extern volatile uint8_t measurement_done_touch;
 
-uint8_t index;
+void setDsPinLow(void) {
+    Pin_DS_SetDigitalOutput();
+    Pin_DS_SetLow();    
+}
+void setAllSensorPinsLow(void) {
+    Pin_S0_SetDigitalOutput();
+    Pin_S0_SetLow();
+    Pin_S1_SetDigitalOutput();
+    Pin_S1_SetLow();
+    Pin_S2_SetDigitalOutput();
+    Pin_S2_SetLow();
+    Pin_S3_SetDigitalOutput();
+    Pin_S3_SetLow();
+    Pin_S4_SetDigitalOutput();
+    Pin_S4_SetLow();
+    Pin_S5_SetDigitalOutput();
+    Pin_S5_SetLow();
+    Pin_S6_SetDigitalOutput();
+    Pin_S6_SetLow();
+    Pin_S7_SetDigitalOutput();
+    Pin_S7_SetLow();
+    Pin_S8_SetDigitalOutput();
+    Pin_S8_SetLow();
+    Pin_S9_SetDigitalOutput();
+    Pin_S9_SetLow();
+}
 
-int main(void)
-{
-    SYSTEM_Initialize();
+int main(void) {
+    uint8_t index;
 
-    while(1)
-    {
-        touch_process();
+    SYSTEM_Initialize();           
+
+    while (1) {
+        touch_process();        // measure and decode all sensor lines
+        /* select below action for ds and sensor pins during non-sampled period */
+//        setDsPinLow();    // set DS pin low after acquisition cycle
+//        setAllSensorPinsLow();  // set all sensors low after acquisition cycle
+        
         if (measurement_done_touch == 1) {
             measurement_done_touch = 0;
         }
-        
-        if(Button_GetValue() == 0){
-            for(index = 0; index < DEF_NUM_CHANNELS; index++){
+
+        /*Push button calibration operation*/
+        if (Button_GetValue() == 0) {
+            for (index = 0; index < DEF_NUM_CHANNELS; index++) {
                 calibrate_node(index);
             }
         }
-    }    
+    }
 }

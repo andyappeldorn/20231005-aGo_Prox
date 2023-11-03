@@ -53,6 +53,10 @@
 #include "include/touch_api_ptc.h"
 #include "../../amazon.h"
 
+/* Select between different DS options */
+// switches: ALL_DS_PLUS_W_DS, ALL_DS_PLUS_NO_DS, MIXED_DS_PLUS_W_DS, DS_ONLY, NO_DS_PLUS_NO_DS
+#define ALL_DS_PLUS_W_DS
+        
 /**********************************************************/
 /******************* Acquisition controls *****************/
 /**********************************************************/
@@ -66,7 +70,12 @@
  * Default value: NODE_MUTUAL.
  */
 
+        // modified to accomodate no shield definition
+#ifdef NO_DS_PLUS_NO_DS   // NODE_SELFCAP
+#define DEF_SENSOR_TYPE NODE_SELFCAP
+#else       // NODE_SELFCAP_SHIELD    NODE_SELFCAP_SHIELD_2L
 #define DEF_SENSOR_TYPE NODE_SELFCAP_SHIELD
+#endif
 /* Set sensor calibration mode for charge share delay (CSD) ,Prescaler or series resistor.
  * Range: CAL_AUTO_TUNE_NONE / CAL_AUTO_TUNE_RSEL / CAL_AUTO_TUNE_PRSC / CAL_AUTO_TUNE_CSD
  * Default value: CAL_AUTO_TUNE_NONE.
@@ -104,9 +113,11 @@
  * {X-line, Y-line, Charge Share Delay(CSD), NODE_RSEL_PRSC(series resistor, prescaler), NODE_G(Analog Gain , Digital Gain),
  * filter level}
  */
+/* driven shield plus enabled, dedicated shield enabled */
+#ifdef ALL_DS_PLUS_W_DS
 #define NODE_0_PARAMS                                                                                               \
 {                                                                                                                  \
-   Y(22)|Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(7), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+    Y(22)|Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(7), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
 #define NODE_1_PARAMS                                                                                               \
 {                                                                                                                  \
@@ -144,7 +155,180 @@
 {                                                                                                                  \
    Y(22)|Y(7)|Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20),  Y(19), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
 }
-
+#endif
+/* driven shield plus enabled, dedicated shield disabled */
+#ifdef ALL_DS_PLUS_NO_DS
+#define NODE_0_PARAMS                                                                                               \
+{                                                                                                                  \
+    Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(7), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_1_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(7)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(6), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_2_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(7)|Y(6)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(5), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_3_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(7)|Y(6)|Y(5)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(4), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_4_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(7)|Y(6)|Y(5)|Y(4)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(18), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_5_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(7)|Y(6)|Y(5)|Y(4)|Y(18)|Y(16)|Y(21)|Y(20)|Y(19),  Y(17), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_6_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(7)|Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(21)|Y(20)|Y(19),  Y(16), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_7_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(7)|Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16)|Y(20)|Y(19),  Y(21), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_8_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(7)|Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21)|Y(19),  Y(20), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_9_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(7)|Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20),  Y(19), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#endif
+/* driven shield plus enabled except neighboring sensors disabled per sensor, dedicated shield enabled */
+#ifdef MIXED_DS_PLUS_W_DS
+#define NODE_0_PARAMS                                                                                               \
+{                                                                                                                  \
+    Y(22)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(7), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_1_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(6), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_2_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22)|Y(7)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(5), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_3_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22)|Y(7)|Y(6)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(4), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_4_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22)|Y(7)|Y(6)|Y(5)|Y(16)|Y(21)|Y(20)|Y(19),  Y(18), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_5_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22)|Y(7)|Y(6)|Y(5)|Y(4)|Y(21)|Y(20)|Y(19),  Y(17), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_6_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22)|Y(7)|Y(6)|Y(5)|Y(4)|Y(18)|Y(20)|Y(19),  Y(16), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_7_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22)|Y(7)|Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(19),  Y(21), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_8_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22)|Y(7)|Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16),  Y(20), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_9_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22)|Y(7)|Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21),  Y(19), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#endif
+/* driven shield plus disabled, dedicated shield enabled */
+#ifdef DS_ONLY
+#define NODE_0_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22),  Y(7), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_1_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22),  Y(6), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_2_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22),  Y(5), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_3_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22),  Y(4), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_4_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22),  Y(18), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_5_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22),  Y(17), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_6_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22),  Y(16), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_7_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22),  Y(21), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_8_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22),  Y(20), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_9_PARAMS                                                                                               \
+{                                                                                                                  \
+   Y(22),  Y(19), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#endif
+/* driven shield plus disabled, dedicated shield disabled */
+#ifdef NO_DS_PLUS_NO_DS
+#define NODE_0_PARAMS                                                                                               \
+{                                                                                                                  \
+   X_NONE,  Y(7), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_1_PARAMS                                                                                               \
+{                                                                                                                  \
+   X_NONE,  Y(6), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_2_PARAMS                                                                                               \
+{                                                                                                                  \
+   X_NONE,  Y(5), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_3_PARAMS                                                                                               \
+{                                                                                                                  \
+   X_NONE,  Y(4), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_4_PARAMS                                                                                               \
+{                                                                                                                  \
+   X_NONE,  Y(18), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_5_PARAMS                                                                                               \
+{                                                                                                                  \
+   X_NONE,  Y(17), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_6_PARAMS                                                                                               \
+{                                                                                                                  \
+   X_NONE,  Y(16), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_7_PARAMS                                                                                               \
+{                                                                                                                  \
+   X_NONE,  Y(21), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_8_PARAMS                                                                                               \
+{                                                                                                                  \
+   X_NONE,  Y(20), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#define NODE_9_PARAMS                                                                                               \
+{                                                                                                                  \
+   X_NONE,  Y(19), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
+}
+#endif
+        
 /**********************************************************/
 /***************** Key Params   ******************/
 /**********************************************************/
