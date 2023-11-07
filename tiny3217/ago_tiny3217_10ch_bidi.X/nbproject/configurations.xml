@@ -282,7 +282,7 @@
         <property key="programoptions.programuserotp" value="false"/>
         <property key="toolpack.updateoptions"
                   value="toolpack.updateoptions.uselatestoolpack"/>
-        <property key="toolpack.updateoptions.packversion" value="1.11.554"/>
+        <property key="toolpack.updateoptions.packversion" value="1.13.715"/>
         <property key="voltagevalue" value=""/>
       </Tool>
       <XC8-CO>
@@ -350,7 +350,7 @@
         <property key="programoptions.programuserotp" value="false"/>
         <property key="toolpack.updateoptions"
                   value="toolpack.updateoptions.uselatestoolpack"/>
-        <property key="toolpack.updateoptions.packversion" value="1.11.554"/>
+        <property key="toolpack.updateoptions.packversion" value="1.13.715"/>
         <property key="voltagevalue" value=""/>
       </nEdbgTool>
     </conf>
