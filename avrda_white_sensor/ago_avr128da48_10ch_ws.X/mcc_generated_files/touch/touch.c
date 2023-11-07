@@ -53,6 +53,58 @@
 #endif
 #endif
 
+#define DEF_CLAMP_SIGNAL_VALUES 0u
+/* attempted fix for negative cap recalibration, did not work well when signal is < reference by greater than clamped value */
+#if DEF_CLAMP_SIGNAL_VALUES == 1
+void clamp_signal_values(void) {
+    uint8_t index;
+    uint16_t signal;
+    uint16_t reference;
+    int16_t delta;
+
+    if ((qtlib_key_data_set1[index].sensor_state == QTM_KEY_STATE_INIT)
+            || (qtlib_key_data_set1[index].sensor_state == QTM_KEY_STATE_CAL)) {
+    }
+    else{
+        for (index = 0; index < DEF_NUM_CHANNELS; index++) {
+            reference = get_sensor_node_reference(index);
+            delta = get_sensor_node_signal(index) - reference;
+
+            if (delta <= (-10)) {    // detect negative delta and clamp to prevent auto calibrate function of keys library
+                signal = reference - 10;
+                // store back clamp value into node data container
+                ptc_qtlib_node_stat1[index].node_acq_signals = signal;
+                qtlib_key_data_set1[index].channel_reference = signal;
+            }
+        }
+    }
+}
+#endif
+
+#if 0
+/* test to try to remove neg cap recal operation in keys library
+ * shows removing of negative cap recal process, but does not work as replacement to keys library
+ * which works in conjunction with scroller library
+*/ 
+
+void my_qtm_signal_process(void) {
+    uint8_t index;
+    if ((qtlib_key_data_set1[index].sensor_state == QTM_KEY_STATE_INIT)
+            || (qtlib_key_data_set1[index].sensor_state == QTM_KEY_STATE_CAL)) {
+        for (index = 0; index < DEF_NUM_CHANNELS; index++) {
+            qtlib_key_data_set1[index].channel_reference = ptc_qtlib_node_stat1[index].node_acq_signals;
+        }
+
+    } else {
+        for (index = 0; index < DEF_NUM_CHANNELS; index++) {
+            qtlib_key_data_set1[index].channel_reference =
+                    (((qtlib_key_data_set1[index].channel_reference*8) - qtlib_key_data_set1[index].channel_reference)  // *7
+                    + ptc_qtlib_node_stat1[index].node_acq_signals)/8;
+        }
+    }
+}
+#endif
+
 /*----------------------------------------------------------------------------
  *   prototypes
  *----------------------------------------------------------------------------*/
@@ -298,11 +350,17 @@ void touch_process(void)
         touch_postprocess_request = 0u;
         /* Run Acquisition module level post processing*/
         touch_ret = qtm_acquisition_process();
-          
+
+#if DEF_CLAMP_SIGNAL_VALUES == 1
+//        if (TOUCH_SUCCESS == touch_ret) {
+//            clamp_signal_values();
+//        }
+#endif 
+        
 #if DEF_USE_TOUCH_IIR == 1
         touch_iirSignalFilter();    // run iir on signal data for all sensors
 #endif
-        
+       
         /* Check the return value */
         if (TOUCH_SUCCESS == touch_ret) {
             /* Returned with success: Start module level post processing */
@@ -312,6 +370,7 @@ void touch_process(void)
                 qtm_error_callback(1);
            }
             touch_ret = qtm_key_sensors_process(&qtlib_key_set1);
+//            my_qtm_signal_process();
             if (TOUCH_SUCCESS != touch_ret) {
                 qtm_error_callback(2);
            }

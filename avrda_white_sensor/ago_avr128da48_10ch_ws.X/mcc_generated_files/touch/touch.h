@@ -393,7 +393,7 @@
  * Range: 0 to 255.
  * Default value: 5.
  */
-#define DEF_ANTI_TCH_DET_INT 2
+#define DEF_ANTI_TCH_DET_INT 0
 
 /* Threshold beyond with automatic sensor recalibration is initiated.
  * Range: RECAL_100/ RECAL_50 / RECAL_25 / RECAL_12_5 / RECAL_6_25 / MAX_RECAL
@@ -407,7 +407,7 @@
  * Range: 0-255
  * Default value: 20u = 4 seconds.
  */
-#define DEF_TCH_DRIFT_RATE 1
+#define DEF_TCH_DRIFT_RATE 20
 
 /* Rate at which sensor reference value is adjusted towards sensor signal value
  * when signal value is less than reference.
@@ -415,7 +415,7 @@
  * Range: 0-255
  * Default value: 5u = 1 second.
  */
-#define DEF_ANTI_TCH_DRIFT_RATE 1
+#define DEF_ANTI_TCH_DRIFT_RATE 5
 
 /* Time to restrict drift on all sensor when one or more sensors are activated.
  * Units: 200ms

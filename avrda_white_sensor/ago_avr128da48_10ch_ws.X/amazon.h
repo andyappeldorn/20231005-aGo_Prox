@@ -42,7 +42,7 @@
 #define D_GAIN GAIN_8       // Digital Gain
 #define SENSOR_CSD 10
 
-#define COMMON_KEY_THRESHOLD 15
+#define COMMON_KEY_THRESHOLD 20
 
 /* Digital Oversampling can be FILTER_LEVEL_1, 2, 4, 8, 16, 32, 64 */
 #define COMMON_FILTER_LEVEL FILTER_LEVEL_64     // 
