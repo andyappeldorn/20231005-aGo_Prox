@@ -53,10 +53,6 @@
 #include "include/touch_api_ptc.h"
 #include "../../amazon.h"
 
-/* Select between different DS options */
-// switches: ALL_DS_PLUS_W_DS, ALL_DS_PLUS_NO_DS, MIXED_DS_PLUS_W_DS, DS_ONLY, NO_DS_PLUS_NO_DS
-#define ALL_DS_PLUS_W_DS
-        
 /**********************************************************/
 /******************* Acquisition controls *****************/
 /**********************************************************/
@@ -71,7 +67,6 @@
  */
 
 #define DEF_SENSOR_TYPE NODE_SELFCAP_SHIELD
-
 /* Set sensor calibration mode for charge share delay (CSD) ,Prescaler or series resistor.
  * Range: CAL_AUTO_TUNE_NONE / CAL_AUTO_TUNE_RSEL / CAL_AUTO_TUNE_PRSC / CAL_AUTO_TUNE_CSD
  * Default value: CAL_AUTO_TUNE_NONE.
@@ -109,7 +104,6 @@
  * {X-line, Y-line, Charge Share Delay(CSD), NODE_RSEL_PRSC(series resistor, prescaler), NODE_G(Analog Gain , Digital Gain),
  * filter level}
  */
-/* driven shield plus enabled, dedicated shield enabled */
 #define NODE_0_PARAMS                                                                                               \
 {                                                                                                                  \
     Y(22)|Y(6)|Y(5)|Y(4)|Y(18)|Y(17)|Y(16)|Y(21)|Y(20)|Y(19),  Y(7), SENSOR_CSD, PRSC_DIV_SEL_12, NODE_GAIN(A_GAIN, D_GAIN), COMMON_FILTER_LEVEL                  \
@@ -165,43 +159,43 @@
  */
 #define KEY_0_PARAMS                                                                                            \
 {                                                                                                              \
-    COMMON_KEY_THRESHOLD, HYST_25, AKS_GROUP_1                       \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
 }
 #define KEY_1_PARAMS                                                                                            \
 {                                                                                                              \
-    COMMON_KEY_THRESHOLD, HYST_25, AKS_GROUP_1                       \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
 }
 #define KEY_2_PARAMS                                                                                            \
 {                                                                                                              \
-    COMMON_KEY_THRESHOLD, HYST_25, AKS_GROUP_1                       \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
 }
 #define KEY_3_PARAMS                                                                                            \
 {                                                                                                              \
-    COMMON_KEY_THRESHOLD, HYST_25, AKS_GROUP_1                       \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
 }
 #define KEY_4_PARAMS                                                                                            \
 {                                                                                                              \
-    COMMON_KEY_THRESHOLD, HYST_25, AKS_GROUP_1                       \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
 }
 #define KEY_5_PARAMS                                                                                            \
 {                                                                                                              \
-    COMMON_KEY_THRESHOLD, HYST_25, AKS_GROUP_1                       \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
 }
 #define KEY_6_PARAMS                                                                                            \
 {                                                                                                              \
-    COMMON_KEY_THRESHOLD, HYST_25, AKS_GROUP_1                       \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
 }
 #define KEY_7_PARAMS                                                                                            \
 {                                                                                                              \
-    COMMON_KEY_THRESHOLD, HYST_25, AKS_GROUP_1                       \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
 }
 #define KEY_8_PARAMS                                                                                            \
 {                                                                                                              \
-    COMMON_KEY_THRESHOLD, HYST_25, AKS_GROUP_1                       \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
 }
 #define KEY_9_PARAMS                                                                                            \
 {                                                                                                              \
-    COMMON_KEY_THRESHOLD, HYST_25, AKS_GROUP_1                       \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
 }
 
 /* De-bounce counter for additional measurements to confirm touch detection
@@ -259,28 +253,6 @@
 #define DEF_MAX_ON_DURATION 0
 
 
-/**********************************************************/
-/***************** Slider/Wheel Parameters ****************/
-/**********************************************************/
-/* Defines the number of scrollers (sliders or wheels)
- */
-#define DEF_NUM_SCROLLERS 1
-
-/* Defines scroller parameter setting
- * {touch_scroller_type, touch_start_key, touch_scroller_size,
- * SCROLLER_RESOL_DEADBAND(touch_scroller_resolution,touch_scroller_deadband), touch_scroller_hysterisis,
- * touch_scr_detect_threshold}
- * Configuring scr_detect_threshold: By default, scr_detect_threshold parameter should be
- * set equal to threshold value of the underlying keys. Then the parameter has to be tuned based on the actual contact
- * size of the touch when moved over the scroller. The contact size of the moving touch can be observed from
- * "contact_size" parameter on scroller runtime data structure.
- */
-  	                                  \
-#define SCROLLER_0_PARAMS                  \
-{                                                                                                              \
-     SCROLLER_TYPE_SLIDER, 0, 10,                            \
-		SCROLLER_RESOL_DEADBAND(SCR_RESOL_8_BIT, SCR_DB_1_PERCENT), 8, 20\
-}
 
 
 
@@ -295,7 +267,7 @@
 #define NUM_FREQ_STEPS 3
 
 /* PTC Sampling Delay Selection - 0 to 15 PTC CLK cycles */
-#define DEF_MEDIAN_FILTER_FREQUENCIES FREQ_SEL_1,FREQ_SEL_3,FREQ_SEL_7
+#define DEF_MEDIAN_FILTER_FREQUENCIES FREQ_SEL_0,FREQ_SEL_1,FREQ_SEL_2
 
 
 /**********************************************************/
@@ -306,13 +278,7 @@
 
 #include "datastreamer/datastreamer.h"
 
-/**********************************************************/
-/***************** IIR - Signal Filter ******************/
-/**********************************************************/
     
-#define DEF_USE_TOUCH_IIR 1u    // enable filter
-extern qtm_acq_node_data_t ptc_qtlib_node_stat1[DEF_NUM_CHANNELS];
-extern qtm_touch_key_data_t qtlib_key_data_set1[DEF_NUM_SENSORS];
 
 /**********************************************************/
 

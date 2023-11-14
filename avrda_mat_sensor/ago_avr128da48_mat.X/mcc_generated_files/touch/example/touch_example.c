@@ -90,8 +90,6 @@ Notes  : none
 void touch_status_display(void)
 {
 uint8_t key_status = 0u;
-uint8_t scroller_status = 0u;
-uint16_t scroller_position = 0u;
 
     key_status = get_sensor_state(0) & KEY_TOUCHED_MASK;
     if (0u != key_status) {
@@ -100,365 +98,68 @@ uint16_t scroller_position = 0u;
         //Touch No detect
     }
 
+    key_status = get_sensor_state(1) & KEY_TOUCHED_MASK;
+    if (0u != key_status) {
+        //Touch detect
+    } else {
+        //Touch No detect
+    }
 
-    scroller_status = get_scroller_state(0);
-    scroller_position = get_scroller_position(0);
-    //Example: 8 bit scroller resolution. Modify as per requirement.
-    scroller_position = scroller_position  >> 5;
-    //LED_OFF
-     if ( 0u != scroller_status) {
-        switch (scroller_position) {
-        case 0:
-            //LED0_ON
-            break;
-        case 1:
-            //LED1_ON
-            break;
-        case 2:
-            //LED2_ON
-            break;
-        case 3:
-            //LED3_ON
-            break;
-        case 4:
-            //LED4_ON
-            break;
-        case 5:
-            //LED5_ON
-            break;
-        case 6:
-            //LED6_ON
-            break;
-        case 7:
-            //LED7_ON
-            break;
-        default:
-            //LED_OFF
-            break;
-        }
+    key_status = get_sensor_state(2) & KEY_TOUCHED_MASK;
+    if (0u != key_status) {
+        //Touch detect
+    } else {
+        //Touch No detect
     }
-    scroller_status = get_scroller_state(1);
-    scroller_position = get_scroller_position(1);
-    //Example: 8 bit scroller resolution. Modify as per requirement.
-    scroller_position = scroller_position  >> 5;
-    //LED_OFF
-     if ( 0u != scroller_status) {
-        switch (scroller_position) {
-        case 0:
-            //LED0_ON
-            break;
-        case 1:
-            //LED1_ON
-            break;
-        case 2:
-            //LED2_ON
-            break;
-        case 3:
-            //LED3_ON
-            break;
-        case 4:
-            //LED4_ON
-            break;
-        case 5:
-            //LED5_ON
-            break;
-        case 6:
-            //LED6_ON
-            break;
-        case 7:
-            //LED7_ON
-            break;
-        default:
-            //LED_OFF
-            break;
-        }
+
+    key_status = get_sensor_state(3) & KEY_TOUCHED_MASK;
+    if (0u != key_status) {
+        //Touch detect
+    } else {
+        //Touch No detect
     }
-    scroller_status = get_scroller_state(2);
-    scroller_position = get_scroller_position(2);
-    //Example: 8 bit scroller resolution. Modify as per requirement.
-    scroller_position = scroller_position  >> 5;
-    //LED_OFF
-     if ( 0u != scroller_status) {
-        switch (scroller_position) {
-        case 0:
-            //LED0_ON
-            break;
-        case 1:
-            //LED1_ON
-            break;
-        case 2:
-            //LED2_ON
-            break;
-        case 3:
-            //LED3_ON
-            break;
-        case 4:
-            //LED4_ON
-            break;
-        case 5:
-            //LED5_ON
-            break;
-        case 6:
-            //LED6_ON
-            break;
-        case 7:
-            //LED7_ON
-            break;
-        default:
-            //LED_OFF
-            break;
-        }
+
+    key_status = get_sensor_state(4) & KEY_TOUCHED_MASK;
+    if (0u != key_status) {
+        //Touch detect
+    } else {
+        //Touch No detect
     }
-    scroller_status = get_scroller_state(3);
-    scroller_position = get_scroller_position(3);
-    //Example: 8 bit scroller resolution. Modify as per requirement.
-    scroller_position = scroller_position  >> 5;
-    //LED_OFF
-     if ( 0u != scroller_status) {
-        switch (scroller_position) {
-        case 0:
-            //LED0_ON
-            break;
-        case 1:
-            //LED1_ON
-            break;
-        case 2:
-            //LED2_ON
-            break;
-        case 3:
-            //LED3_ON
-            break;
-        case 4:
-            //LED4_ON
-            break;
-        case 5:
-            //LED5_ON
-            break;
-        case 6:
-            //LED6_ON
-            break;
-        case 7:
-            //LED7_ON
-            break;
-        default:
-            //LED_OFF
-            break;
-        }
+
+    key_status = get_sensor_state(5) & KEY_TOUCHED_MASK;
+    if (0u != key_status) {
+        //Touch detect
+    } else {
+        //Touch No detect
     }
-    scroller_status = get_scroller_state(4);
-    scroller_position = get_scroller_position(4);
-    //Example: 8 bit scroller resolution. Modify as per requirement.
-    scroller_position = scroller_position  >> 5;
-    //LED_OFF
-     if ( 0u != scroller_status) {
-        switch (scroller_position) {
-        case 0:
-            //LED0_ON
-            break;
-        case 1:
-            //LED1_ON
-            break;
-        case 2:
-            //LED2_ON
-            break;
-        case 3:
-            //LED3_ON
-            break;
-        case 4:
-            //LED4_ON
-            break;
-        case 5:
-            //LED5_ON
-            break;
-        case 6:
-            //LED6_ON
-            break;
-        case 7:
-            //LED7_ON
-            break;
-        default:
-            //LED_OFF
-            break;
-        }
+
+    key_status = get_sensor_state(6) & KEY_TOUCHED_MASK;
+    if (0u != key_status) {
+        //Touch detect
+    } else {
+        //Touch No detect
     }
-    scroller_status = get_scroller_state(5);
-    scroller_position = get_scroller_position(5);
-    //Example: 8 bit scroller resolution. Modify as per requirement.
-    scroller_position = scroller_position  >> 5;
-    //LED_OFF
-     if ( 0u != scroller_status) {
-        switch (scroller_position) {
-        case 0:
-            //LED0_ON
-            break;
-        case 1:
-            //LED1_ON
-            break;
-        case 2:
-            //LED2_ON
-            break;
-        case 3:
-            //LED3_ON
-            break;
-        case 4:
-            //LED4_ON
-            break;
-        case 5:
-            //LED5_ON
-            break;
-        case 6:
-            //LED6_ON
-            break;
-        case 7:
-            //LED7_ON
-            break;
-        default:
-            //LED_OFF
-            break;
-        }
+
+    key_status = get_sensor_state(7) & KEY_TOUCHED_MASK;
+    if (0u != key_status) {
+        //Touch detect
+    } else {
+        //Touch No detect
     }
-    scroller_status = get_scroller_state(6);
-    scroller_position = get_scroller_position(6);
-    //Example: 8 bit scroller resolution. Modify as per requirement.
-    scroller_position = scroller_position  >> 5;
-    //LED_OFF
-     if ( 0u != scroller_status) {
-        switch (scroller_position) {
-        case 0:
-            //LED0_ON
-            break;
-        case 1:
-            //LED1_ON
-            break;
-        case 2:
-            //LED2_ON
-            break;
-        case 3:
-            //LED3_ON
-            break;
-        case 4:
-            //LED4_ON
-            break;
-        case 5:
-            //LED5_ON
-            break;
-        case 6:
-            //LED6_ON
-            break;
-        case 7:
-            //LED7_ON
-            break;
-        default:
-            //LED_OFF
-            break;
-        }
+
+    key_status = get_sensor_state(8) & KEY_TOUCHED_MASK;
+    if (0u != key_status) {
+        //Touch detect
+    } else {
+        //Touch No detect
     }
-    scroller_status = get_scroller_state(7);
-    scroller_position = get_scroller_position(7);
-    //Example: 8 bit scroller resolution. Modify as per requirement.
-    scroller_position = scroller_position  >> 5;
-    //LED_OFF
-     if ( 0u != scroller_status) {
-        switch (scroller_position) {
-        case 0:
-            //LED0_ON
-            break;
-        case 1:
-            //LED1_ON
-            break;
-        case 2:
-            //LED2_ON
-            break;
-        case 3:
-            //LED3_ON
-            break;
-        case 4:
-            //LED4_ON
-            break;
-        case 5:
-            //LED5_ON
-            break;
-        case 6:
-            //LED6_ON
-            break;
-        case 7:
-            //LED7_ON
-            break;
-        default:
-            //LED_OFF
-            break;
-        }
+
+    key_status = get_sensor_state(9) & KEY_TOUCHED_MASK;
+    if (0u != key_status) {
+        //Touch detect
+    } else {
+        //Touch No detect
     }
-    scroller_status = get_scroller_state(8);
-    scroller_position = get_scroller_position(8);
-    //Example: 8 bit scroller resolution. Modify as per requirement.
-    scroller_position = scroller_position  >> 5;
-    //LED_OFF
-     if ( 0u != scroller_status) {
-        switch (scroller_position) {
-        case 0:
-            //LED0_ON
-            break;
-        case 1:
-            //LED1_ON
-            break;
-        case 2:
-            //LED2_ON
-            break;
-        case 3:
-            //LED3_ON
-            break;
-        case 4:
-            //LED4_ON
-            break;
-        case 5:
-            //LED5_ON
-            break;
-        case 6:
-            //LED6_ON
-            break;
-        case 7:
-            //LED7_ON
-            break;
-        default:
-            //LED_OFF
-            break;
-        }
-    }
-    scroller_status = get_scroller_state(9);
-    scroller_position = get_scroller_position(9);
-    //Example: 8 bit scroller resolution. Modify as per requirement.
-    scroller_position = scroller_position  >> 5;
-    //LED_OFF
-     if ( 0u != scroller_status) {
-        switch (scroller_position) {
-        case 0:
-            //LED0_ON
-            break;
-        case 1:
-            //LED1_ON
-            break;
-        case 2:
-            //LED2_ON
-            break;
-        case 3:
-            //LED3_ON
-            break;
-        case 4:
-            //LED4_ON
-            break;
-        case 5:
-            //LED5_ON
-            break;
-        case 6:
-            //LED6_ON
-            break;
-        case 7:
-            //LED7_ON
-            break;
-        default:
-            //LED_OFF
-            break;
-        }
-    }
+
+
 }

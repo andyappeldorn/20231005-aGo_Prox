@@ -38,32 +38,6 @@
 
 extern volatile uint8_t measurement_done_touch;
 
-void setDsPinLow(void) {
-    Pin_DS_SetDigitalOutput();
-    Pin_DS_SetLow();    
-}
-void setAllSensorPinsLow(void) {
-    Pin_S0_SetDigitalOutput();
-    Pin_S0_SetLow();
-    Pin_S1_SetDigitalOutput();
-    Pin_S1_SetLow();
-    Pin_S2_SetDigitalOutput();
-    Pin_S2_SetLow();
-    Pin_S3_SetDigitalOutput();
-    Pin_S3_SetLow();
-    Pin_S4_SetDigitalOutput();
-    Pin_S4_SetLow();
-    Pin_S5_SetDigitalOutput();
-    Pin_S5_SetLow();
-    Pin_S6_SetDigitalOutput();
-    Pin_S6_SetLow();
-    Pin_S7_SetDigitalOutput();
-    Pin_S7_SetLow();
-    Pin_S8_SetDigitalOutput();
-    Pin_S8_SetLow();
-    Pin_S9_SetDigitalOutput();
-    Pin_S9_SetLow();
-}
 
 int main(void) {
     uint8_t index;
@@ -72,9 +46,6 @@ int main(void) {
 
     while (1) {
         touch_process();        // measure and decode all sensor lines
-        /* select below action for ds and sensor pins during non-sampled period */
-//        setDsPinLow();    // set DS pin low after acquisition cycle
-//        setAllSensorPinsLow();  // set all sensors low after acquisition cycle
         
         if (measurement_done_touch == 1) {
             measurement_done_touch = 0;

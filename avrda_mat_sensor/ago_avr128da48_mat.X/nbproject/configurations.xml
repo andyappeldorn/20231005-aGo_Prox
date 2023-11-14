@@ -46,7 +46,6 @@
             <itemPath>mcc_generated_files/touch/include/qtm_acq_avr_da_0x0037_api.h</itemPath>
             <itemPath>mcc_generated_files/touch/include/qtm_common_components_api.h</itemPath>
             <itemPath>mcc_generated_files/touch/include/qtm_touch_key_0x0002_api.h</itemPath>
-            <itemPath>mcc_generated_files/touch/include/qtm_scroller_0x000b_api.h</itemPath>
             <itemPath>mcc_generated_files/touch/include/qtm_freq_hop_0x0006_api.h</itemPath>
           </logicalFolder>
           <itemPath>mcc_generated_files/touch/touch.h</itemPath>
@@ -141,7 +140,6 @@
           <linkerLibItems>
             <linkerLibFileItem>mcc_generated_files/touch/libraries/libqtm_touch_key_avr128da_0x0002.X.a</linkerLibFileItem>
             <linkerLibFileItem>mcc_generated_files/touch/libraries/libqtm_acq_avr128da_0x0037.X.a</linkerLibFileItem>
-            <linkerLibFileItem>mcc_generated_files/touch/libraries/libqtm_scroller_avr128da_0x000b.X.a</linkerLibFileItem>
             <linkerLibFileItem>mcc_generated_files/touch/libraries/libqtm_freq_hop_avr128da_0x0006.X.a</linkerLibFileItem>
           </linkerLibItems>
         </linkerTool>

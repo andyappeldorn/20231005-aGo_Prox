@@ -49,7 +49,7 @@
  *----------------------------------------------------------------------------*/
 #define ACQ_MODULE_AUTOTUNE_OUTPUT 0
 #define FREQ_HOP_AUTO_MODULE_OUTPUT 0
-#define SCROLLER_MODULE_OUTPUT 1
+#define SCROLLER_MODULE_OUTPUT 0
 
 #define SURFACE_MODULE_OUTPUT 0
 
@@ -60,7 +60,6 @@
 extern qtm_acquisition_control_t qtlib_acq_set1;
 extern qtm_touch_key_control_t   qtlib_key_set1;
 extern qtm_touch_key_config_t    qtlib_key_configs_set1[DEF_NUM_SENSORS];
-extern qtm_scroller_control_t qtm_scroller_control1;
 
 extern uint8_t module_error_code;
 
@@ -212,18 +211,6 @@ void datastreamer_output(void)
 
 #endif
 
-    /* position in inches */
-    u8temp_output = qtm_scroller_control1.qtm_scroller_data[0].scroller_status;
-    if (0u != (u8temp_output & 0x01)) { // if scroller state is true
-        u16temp_output = qtm_scroller_control1.qtm_scroller_data[0].position;
-        u8temp_output = (uint8_t) (u16temp_output & 0x00FFu);
-        u8temp_output = (u8temp_output * 100 / 255); // percentage
-        u8temp_output = u8temp_output * SENSOR_LEN_INCHES / 100; // percentage of sensor length
-        datastreamer_transmit(u8temp_output);
-    } else {    // if scroller state is false
-        datastreamer_transmit(0x00);
-    }
-    
 #if (FREQ_HOP_AUTO_MODULE_OUTPUT == 1)
 
 	/* Frequency selection - from acq module */
