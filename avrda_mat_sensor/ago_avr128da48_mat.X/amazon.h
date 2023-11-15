@@ -44,17 +44,17 @@
 
 /* Gain setting can be GAIN_1, GAIN_2, GAIN_4, GAIN_8, GAIN_16 */
 #define A_GAIN GAIN_1       // Analog Gain
-#define D_GAIN GAIN_8       // Digital Gain
+#define D_GAIN GAIN_4       // Digital Gain
 #define SENSOR_CSD 10
+
+/* Digital Oversampling can be FILTER_LEVEL_1, 2, 4, 8, 16, 32, 64 */
+#define COMMON_FILTER_LEVEL FILTER_LEVEL_32     // 
 
 #define POSITIVE_THRESHOLD 20
 #define NEGATIVE_THRESHOLD 20
 
 /* not used, will delete later */
-#define COMMON_KEY_THRESHOLD 20
-
-/* Digital Oversampling can be FILTER_LEVEL_1, 2, 4, 8, 16, 32, 64 */
-#define COMMON_FILTER_LEVEL FILTER_LEVEL_32     // 
+#define COMMON_KEY_THRESHOLD 0
 
 #endif
 

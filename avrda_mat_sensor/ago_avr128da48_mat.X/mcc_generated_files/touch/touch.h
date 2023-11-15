@@ -267,7 +267,7 @@
 #define NUM_FREQ_STEPS 3
 
 /* PTC Sampling Delay Selection - 0 to 15 PTC CLK cycles */
-#define DEF_MEDIAN_FILTER_FREQUENCIES FREQ_SEL_0,FREQ_SEL_1,FREQ_SEL_2
+#define DEF_MEDIAN_FILTER_FREQUENCIES FREQ_SEL_1,FREQ_SEL_3,FREQ_SEL_7
 
 
 /**********************************************************/
@@ -278,7 +278,13 @@
 
 #include "datastreamer/datastreamer.h"
 
+/**********************************************************/
+/***************** IIR - Signal Filter ******************/
+/**********************************************************/
     
+#define DEF_USE_TOUCH_IIR 1u    // enable filter
+extern qtm_acq_node_data_t ptc_qtlib_node_stat1[DEF_NUM_CHANNELS];
+extern qtm_touch_key_data_t qtlib_key_data_set1[DEF_NUM_SENSORS];
 
 /**********************************************************/
 

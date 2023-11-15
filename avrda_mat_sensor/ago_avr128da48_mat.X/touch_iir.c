@@ -25,11 +25,11 @@ void touch_iirSignalFilter(void){
         
         // IIR filter
         accumulator = (uint64_t)(
-                (touch_iirData[index].signal * 7) +
+                (touch_iirData[index].signal * 3) +
                 (touch_iirData[index].signal_m1 * 0) +
                 (touch_iirData[index].signal_m0 * 1));
         
-        touch_iirData[index].signal = accumulator/8;    // average accumulated value
+        touch_iirData[index].signal = accumulator/4;    // average accumulated value
         update_sensor_node_signal(index, touch_iirData[index].signal);  // store back into node data container
         }
     }

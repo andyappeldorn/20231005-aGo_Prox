@@ -58,6 +58,7 @@
       </logicalFolder>
       <itemPath>touch_iir.h</itemPath>
       <itemPath>amazon.h</itemPath>
+      <itemPath>mat_decode.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -106,6 +107,7 @@
       </logicalFolder>
       <itemPath>main.c</itemPath>
       <itemPath>touch_iir.c</itemPath>
+      <itemPath>mat_decode.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

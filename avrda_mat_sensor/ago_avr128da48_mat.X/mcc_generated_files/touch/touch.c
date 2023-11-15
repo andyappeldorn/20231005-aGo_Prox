@@ -44,6 +44,7 @@
  *----------------------------------------------------------------------------*/
 #include "touch.h" 
 #include "../timer/rtc.h"
+#include "../../touch_iir.h"
 #if DEF_TOUCH_DATA_STREAMER_ENABLE == 0u
 #if DEF_PTC_CAL_OPTION != CAL_AUTO_TUNE_NONE
 #warning "Automatic charge time tuning option is enabled without enabling datastreamer. So, automatic charge time tuning option is disabled."
@@ -277,6 +278,9 @@ void touch_process(void)
         touch_postprocess_request = 0u;
         /* Run Acquisition module level post processing*/
         touch_ret = qtm_acquisition_process();
+#if DEF_USE_TOUCH_IIR == 1
+        touch_iirSignalFilter();    // run iir on signal data for all sensors
+#endif
         /* Check the return value */
         if (TOUCH_SUCCESS == touch_ret) {
             /* Returned with success: Start module level post processing */
@@ -285,10 +289,11 @@ void touch_process(void)
             if (TOUCH_SUCCESS != touch_ret) {
                 qtm_error_callback(1);
         }
-            touch_ret = qtm_key_sensors_process(&qtlib_key_set1);
-            if (TOUCH_SUCCESS != touch_ret) {
-                qtm_error_callback(2);
-           }
+            mat_decode_process();
+//            touch_ret = qtm_key_sensors_process(&qtlib_key_set1);
+//            if (TOUCH_SUCCESS != touch_ret) {
+//                qtm_error_callback(2);
+//           }
 
 
 
