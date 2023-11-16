@@ -119,7 +119,7 @@ void mat_datastreamer_output(void)
 	uint16_t          u16temp_output;
 	uint8_t           u8temp_output, send_header;
 	volatile uint16_t count_bytes_out;
-
+    
 	send_header = sequence & (0x0f);
 	if (send_header == 0) {
 		for (i = 0; i < sizeof(data); i++) {
@@ -176,15 +176,43 @@ void mat_datastreamer_output(void)
 
 #endif
 		/* State */
-		u8temp_output = get_sensor_state(count_bytes_out);
-		if (0u != (u8temp_output & 0x80)) {
-			datastreamer_transmit(0x01);
-		} else {
-			datastreamer_transmit(0x00);
-		}
+        u8temp_output = mat_decode_data[count_bytes_out].key_state;
+        if(u8temp_output == IDLE){
+            datastreamer_transmit(0x01);
+        }
+        else if(u8temp_output == POS_DETECT)
+        {
+            datastreamer_transmit(0x02);
+        }
+        else if(u8temp_output == NEG_DETECT){
+            datastreamer_transmit(0x00);
+        }
+        
+        /* Decode State */
+        u8temp_output = mat_decode_data[count_bytes_out].decode_state;
+        datastreamer_transmit(u8temp_output);
 
 		/* Threshold */
 		datastreamer_transmit(qtlib_key_configs_set1[count_bytes_out].channel_threshold);
+        
+//        /* Positive threshold */
+//        temp_int_calc = (int16_t)(MAT_POS_THRESHOLD);
+//		datastreamer_transmit((uint8_t)temp_int_calc);
+//		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+//        /* Positive hysteresis value */
+//        temp_int_calc = (int16_t)(MAT_POS_THRESHOLD - MAT_POS_HYSTERESIS);
+//		datastreamer_transmit((uint8_t)temp_int_calc);
+//		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+//        
+//        /* Negative threshold */
+//        temp_int_calc = (int16_t)(MAT_NEG_THRESHOLD);
+//		datastreamer_transmit((uint8_t)temp_int_calc);
+//		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+//        /* Negative hysteresis value */
+//        temp_int_calc = (int16_t)(-MAT_NEG_THRESHOLD + MAT_NEG_HYSTERESIS);
+//		datastreamer_transmit((uint8_t)temp_int_calc);
+//		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+        
 	}
 
 #if (SCROLLER_MODULE_OUTPUT == 1)

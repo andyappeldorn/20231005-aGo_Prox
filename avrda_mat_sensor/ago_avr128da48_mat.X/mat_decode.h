@@ -28,11 +28,11 @@ extern "C" {
         NEG_DETECT
     } _mat_key_state;
     
-#define MAT_POS_THRESHOLD   400
-#define MAT_POS_HYSTERESIS  50
+#define MAT_POS_THRESHOLD   50
+#define MAT_POS_HYSTERESIS  5
 #define MAT_POS_DI_COUNT  5
-#define MAT_NEG_THRESHOLD   400
-#define MAT_NEG_HYSTERESIS  50
+#define MAT_NEG_THRESHOLD   50
+#define MAT_NEG_HYSTERESIS  5
 #define MAT_NEG_DI_COUNT  5
     
     typedef struct {

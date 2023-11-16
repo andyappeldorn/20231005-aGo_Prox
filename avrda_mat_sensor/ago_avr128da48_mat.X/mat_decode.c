@@ -13,14 +13,15 @@ void AGO_mat_decode_init(void) {
 
 void mat_decode_process(void) {
     uint8_t index;
-    volatile int16_t touch_delta;
+    volatile int32_t touch_delta;
+    volatile int32_t threshold;
     volatile _mat_decode_process_state this_decode_state;
-    uint8_t this_key_state;
+//    uint8_t this_key_state;
     //    volatile uint64_t accumulator;
 
     for (index = 0; index < DEF_NUM_CHANNELS; index++) {
         this_decode_state = mat_decode_data[index].decode_state;
-        this_key_state = mat_decode_data[index].key_state;
+//        this_key_state = mat_decode_data[index].key_state;
         /* maintain reference */
         switch (this_decode_state) {
             case (MAT_DECODE_STATE_INIT):
@@ -44,7 +45,7 @@ void mat_decode_process(void) {
                 }
 
                 /* compare signal to thresholds */
-                touch_delta = (int16_t) (mat_decode_data[index].channel_reference - ptc_qtlib_node_stat1[index].node_acq_signals); // calculate delta
+                touch_delta = (int32_t) (mat_decode_data[index].channel_reference - ptc_qtlib_node_stat1[index].node_acq_signals); // calculate delta
                 /* compare against upper and lower thresholds */
                 if (touch_delta >= MAT_POS_THRESHOLD) {
                     /* delta > positive threshold */
@@ -69,8 +70,8 @@ void mat_decode_process(void) {
                     }
                     // add hysteresis
                 } else {
-                    //            mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
-                    //            mat_decode_data[index].key_state = IDLE;
+                    mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
+                    mat_decode_data[index].key_state = IDLE;
                     mat_decode_data[index].di_pos_counter = MAT_POS_DI_COUNT;
                     mat_decode_data[index].di_neg_counter = MAT_NEG_DI_COUNT;
                 }
@@ -78,6 +79,29 @@ void mat_decode_process(void) {
                 break;
             case (MAT_DECODE_STATE_DETECT):
                 /* sensor triggered, no reference compensation */
+                touch_delta = (int32_t) (mat_decode_data[index].channel_reference - ptc_qtlib_node_stat1[index].node_acq_signals); // calculate delta
+                // hysteresis for release
+                if (mat_decode_data[index].key_state == POS_DETECT) {
+                    threshold = (int32_t)(MAT_POS_THRESHOLD - MAT_POS_HYSTERESIS);
+                    if (touch_delta < threshold) {
+                        /* signal is below hysteresis value*/
+                        mat_decode_data[index].key_state = IDLE;
+                        mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
+                    }else{
+                        
+                    }
+                } else if (mat_decode_data[index].key_state == NEG_DETECT) {
+                    threshold = (int32_t)(-MAT_NEG_THRESHOLD + MAT_NEG_HYSTERESIS);
+                    if (touch_delta > threshold) {
+                        /* signal is above hysteresis value */
+                        mat_decode_data[index].key_state = IDLE;
+                        mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
+                    }
+                } else {
+                    mat_decode_data[index].key_state = IDLE;
+                    mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
+                }
+                /* go to callbacks */
 
                 break;
             default:
