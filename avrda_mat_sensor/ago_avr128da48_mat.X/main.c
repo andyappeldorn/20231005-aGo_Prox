@@ -31,6 +31,7 @@
     THIS SOFTWARE.
  */
 #include "mcc_generated_files/system/system.h"
+#include "mat_decode.h"
 
 /*
     Main application
@@ -42,7 +43,10 @@ extern volatile uint8_t measurement_done_touch;
 int main(void) {
     uint8_t index;
 
-    SYSTEM_Initialize();           
+    SYSTEM_Initialize();
+    
+    AGO_mat_decode_init();
+    
 
     while (1) {
         touch_process();        // measure and decode all sensor lines
@@ -55,6 +59,7 @@ int main(void) {
         if (Button_GetValue() == 0) {
             for (index = 0; index < DEF_NUM_CHANNELS; index++) {
                 calibrate_node(index);
+                AGO_mat_decode_init();
             }
         }
     }

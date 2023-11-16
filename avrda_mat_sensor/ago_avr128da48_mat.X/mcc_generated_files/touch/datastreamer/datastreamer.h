@@ -48,6 +48,7 @@
  *   prototypes
  *----------------------------------------------------------------------------*/
 void datastreamer_init(void);
+void mat_datastreamer_output(void);
 void datastreamer_output(void);
 
 #endif
