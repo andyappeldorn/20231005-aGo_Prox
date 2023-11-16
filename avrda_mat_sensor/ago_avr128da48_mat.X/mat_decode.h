@@ -36,10 +36,15 @@ extern "C" {
 #define MAT_NEG_DI_COUNT  5
     
     typedef struct {
-        _mat_decode_process_state decode_state;
-        _mat_key_state key_state; /* status of key */
+        _mat_decode_process_state decode_state; // status of decode process
+        _mat_key_state key_state; // status of key
         uint8_t init_counter;
-        uint16_t channel_reference; /* Reference signal */
+        uint16_t channel_reference;
+        int16_t channel_delta;
+        int16_t channel_pos_threshold;
+        int16_t channel_pos_hysteresis;
+        int16_t channel_neg_threshold;
+        int16_t channel_neg_hysteresis;
         uint8_t di_pos_counter;
         uint8_t di_neg_counter;
     } _mat_decode_data_t;

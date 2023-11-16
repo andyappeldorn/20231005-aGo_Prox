@@ -193,25 +193,25 @@ void mat_datastreamer_output(void)
         datastreamer_transmit(u8temp_output);
 
 		/* Threshold */
-		datastreamer_transmit(qtlib_key_configs_set1[count_bytes_out].channel_threshold);
+//		datastreamer_transmit(qtlib_key_configs_set1[count_bytes_out].channel_threshold);
         
-//        /* Positive threshold */
-//        temp_int_calc = (int16_t)(MAT_POS_THRESHOLD);
-//		datastreamer_transmit((uint8_t)temp_int_calc);
-//		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
-//        /* Positive hysteresis value */
-//        temp_int_calc = (int16_t)(MAT_POS_THRESHOLD - MAT_POS_HYSTERESIS);
-//		datastreamer_transmit((uint8_t)temp_int_calc);
-//		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
-//        
-//        /* Negative threshold */
-//        temp_int_calc = (int16_t)(MAT_NEG_THRESHOLD);
-//		datastreamer_transmit((uint8_t)temp_int_calc);
-//		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
-//        /* Negative hysteresis value */
-//        temp_int_calc = (int16_t)(-MAT_NEG_THRESHOLD + MAT_NEG_HYSTERESIS);
-//		datastreamer_transmit((uint8_t)temp_int_calc);
-//		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+        /* Positive threshold */
+        temp_int_calc = (int16_t)(mat_decode_data[count_bytes_out].channel_pos_threshold);
+		datastreamer_transmit((uint8_t)temp_int_calc);
+		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+        /* Positive hysteresis value */
+        temp_int_calc = (int16_t)(mat_decode_data[count_bytes_out].channel_pos_hysteresis);
+		datastreamer_transmit((uint8_t)temp_int_calc);
+		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+        
+        /* Negative threshold */
+        temp_int_calc = (int16_t)(-mat_decode_data[count_bytes_out].channel_neg_threshold);
+		datastreamer_transmit((uint8_t)temp_int_calc);
+		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+        /* Negative hysteresis value */
+        temp_int_calc = (int16_t)(-mat_decode_data[count_bytes_out].channel_neg_hysteresis);
+		datastreamer_transmit((uint8_t)temp_int_calc);
+		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
         
 	}
 
