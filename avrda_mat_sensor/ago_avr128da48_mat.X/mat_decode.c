@@ -14,7 +14,7 @@ void AGO_mat_decode_init(void) {
         mat_decode_data[index].channel_pos_threshold = MAT_POS_THRESHOLD;
         mat_decode_data[index].channel_pos_hysteresis = MAT_POS_THRESHOLD - MAT_POS_HYSTERESIS;
         mat_decode_data[index].channel_neg_threshold = MAT_NEG_THRESHOLD;
-        mat_decode_data[index].channel_neg_hysteresis = MAT_NEG_THRESHOLD + MAT_NEG_HYSTERESIS;
+        mat_decode_data[index].channel_neg_hysteresis = MAT_NEG_THRESHOLD - MAT_NEG_HYSTERESIS;
     }
 }
 
@@ -56,17 +56,17 @@ void mat_decode_process(void) {
                         /* wait for consecutive samples above pos threshold */
                         mat_decode_data[index].di_pos_counter--; // count down di counter register
                     } else {
-                        /* consecutive decodes above pos threshold, confirmed action */
+                        /* consecutive decodes above positive threshold, confirmed action */
                         mat_decode_data[index].decode_state = MAT_DECODE_STATE_DETECT;
                         mat_decode_data[index].key_state = POS_DETECT;
                     }
                 } else if (mat_decode_data[index].channel_delta <= (-mat_decode_data[index].channel_neg_threshold)) {
                     /* compare against negative threshold */
                     if (mat_decode_data[index].di_neg_counter > 0) {
-                        /* wait for consecutive samples below neg threshold */
+                        /* wait for consecutive samples below negative threshold */
                         mat_decode_data[index].di_neg_counter--;
                     } else {
-                        /* consecutive decodes below neg threshold, confirmed action */
+                        /* consecutive decodes below negative threshold, confirmed action */
                         mat_decode_data[index].decode_state = MAT_DECODE_STATE_DETECT;
                         mat_decode_data[index].key_state = NEG_DETECT;
                     }
@@ -95,13 +95,13 @@ void mat_decode_process(void) {
                         /* signal is above hysteresis value */
                         mat_decode_data[index].key_state = IDLE;
                         mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
+                    } else{
+                        
                     }
                 } else {
                     mat_decode_data[index].key_state = IDLE;
                     mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
                 }
-                
-                /* @TODO go to callbacks for detect event handling */
                 break;
                 
             default:
@@ -112,6 +112,3 @@ void mat_decode_process(void) {
         }
     }
 }
-
-/***** TODO *****/
-/* add mat decode data to data streamer output c and ds files and test */

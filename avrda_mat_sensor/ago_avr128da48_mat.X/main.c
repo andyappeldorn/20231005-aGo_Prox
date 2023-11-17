@@ -46,7 +46,6 @@ int main(void) {
     SYSTEM_Initialize();
     
     AGO_mat_decode_init();
-    
 
     while (1) {
         touch_process();        // measure and decode all sensor lines

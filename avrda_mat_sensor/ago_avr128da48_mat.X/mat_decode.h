@@ -28,12 +28,7 @@ extern "C" {
         NEG_DETECT
     } _mat_key_state;
     
-#define MAT_POS_THRESHOLD   50
-#define MAT_POS_HYSTERESIS  5
-#define MAT_POS_DI_COUNT  5
-#define MAT_NEG_THRESHOLD   50
-#define MAT_NEG_HYSTERESIS  5
-#define MAT_NEG_DI_COUNT  5
+
     
     typedef struct {
         _mat_decode_process_state decode_state; // status of decode process
@@ -50,7 +45,8 @@ extern "C" {
     } _mat_decode_data_t;
 
     extern volatile _mat_decode_data_t mat_decode_data[DEF_NUM_SENSORS];
-
+    
+    void AGO_mat_decode_init(void);
     void mat_decode_process(void);
 
 #ifdef	__cplusplus

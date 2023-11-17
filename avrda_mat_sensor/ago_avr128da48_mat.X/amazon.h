@@ -31,11 +31,13 @@
 #ifndef AMAZON_H
 #define	AMAZON_H
 
-/* select sensor and acquisition type*/
-#define USE_10CH_WHITE_SENSOR_MAT 1u
+/* select sensor and accompanied settings */
+#define USE_10CH_WHITE_SENSOR
+//#define USE_32CH_INTERPOSER_SENSOR
+
 
 /* white 10 channel sensor for testing for mat application */
-#ifdef USE_10CH_WHITE_SENSOR_MAT
+#ifdef USE_10CH_WHITE_SENSOR
 /* use the defines below to set sensor parameters */
 #define SENSOR_LEN_INCHES 24
 #define NUMBER_OF_SENSORS 10
@@ -50,15 +52,19 @@
 /* Digital Oversampling can be FILTER_LEVEL_1, 2, 4, 8, 16, 32, 64 */
 #define COMMON_FILTER_LEVEL FILTER_LEVEL_32     // 
 
-#define POSITIVE_THRESHOLD 20
-#define NEGATIVE_THRESHOLD 20
+#define MAT_POS_THRESHOLD   50
+#define MAT_POS_HYSTERESIS  5
+#define MAT_POS_DI_COUNT  3
+#define MAT_NEG_THRESHOLD   50
+#define MAT_NEG_HYSTERESIS  5
+#define MAT_NEG_DI_COUNT  3
 
 /* not used, will delete later */
 #define COMMON_KEY_THRESHOLD 0
 
 #endif
 
-#ifdef AMZN_16CH_MAT
+#ifdef USE_32CH_INTERPOSER_SENSOR
 #error "not defined"
 #endif
 
