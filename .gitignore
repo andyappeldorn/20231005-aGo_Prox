@@ -43,3 +43,5 @@ defmplabxtrace.log*
 
 # Secure directory - not tracked in version control
 [Ss]ecure/
+ATtiny3216-17-DataSheet-DS40002205A.pdf
+AVR128DA28-32-48-64-Data-Sheet-40002183C.pdf

@@ -1,14 +1,15 @@
-/**
- * System Driver Header File
- * 
- * @file system.h
- * 
- * @defgroup systemdriver System Driver
- * 
- * @brief This file contains the API prototypes for the System driver.
+/** 
+ * TMR Generated Driver API Header File
  *
- * @version Driver Version 1.0.1
-*/
+ * @file timer_interface.h
+ *  
+ * @defgroup timer_interface Timer interface
+ *
+ * @brief This header file provides interfaces to Timer APIs.
+ *
+ * @version TMR_interface Version 1.0.1
+ */
+
 /*
 © [2023] Microchip Technology Inc. and its subsidiaries.
 
@@ -30,35 +31,32 @@
     THIS SOFTWARE.
 */
 
+#ifndef TMR_INTERFACE_H
+#define TMR_INTERFACE_H
 
-#ifndef MCC_H
-#define	MCC_H
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "../system/utils/compiler.h"
-#include "config_bits.h"
-#include "../system/clock.h"
-#include "../system/pins.h"
-#include "../timer/rtc.h"
-#include "../timer/tcb0.h"
-#include "../uart/usart1.h"
-#include "../touch/touch.h"
-#include "../system/interrupt.h"
 /**
- * @ingroup systemdriver
- * @brief Initializes the system module. This routine must be called only once during the system initialization and before any other routine is called.
- * @param None.
- * @return None.
-*/
-void SYSTEM_Initialize(void);
+ * @brief This file contains API prototypes and other data types for the Timer interface.
+ * @{
+ */
 
-#ifdef __cplusplus
-}
-#endif
-#endif	/* MCC_H */
+#include<stddef.h>
+        
 /**
- End of File
-*/
+ @ingroup timer_interface
+ @struct TMR_INTERFACE
+ @brief This structure contains the interfaces to Timer module
+ */
+ 
+struct TMR_INTERFACE
+{
+    void (*Initialize)(void);
+    void (*Start)(void);
+    void (*Stop)(void);
+    void (*PeriodCountSet)(size_t count);
+    void (*TimeoutCallbackRegister)(void (* CallbackHandler)(void));
+    void (*Tasks)(void);
+};
+/**
+ * @}
+ */
+#endif //TMR_INTERFACE_H 

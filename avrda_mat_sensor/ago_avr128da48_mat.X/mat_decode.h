@@ -26,13 +26,13 @@ extern "C" {
         IDLE,
         POS_DETECT,
         NEG_DETECT
-    } _mat_key_state;
+    } _mat_lane_detect_state;
     
 
     
     typedef struct {
         _mat_decode_process_state decode_state; // status of decode process
-        _mat_key_state key_state; // status of key
+        _mat_lane_detect_state lane_state; // status of lane
         uint8_t init_counter;
         uint16_t channel_reference;
         int16_t channel_delta;

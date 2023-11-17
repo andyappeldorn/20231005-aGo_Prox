@@ -7,7 +7,7 @@ void AGO_mat_decode_init(void) {
     uint8_t index;
     for (index = 0; index < DEF_NUM_CHANNELS; index++) {
         mat_decode_data[index].decode_state = MAT_DECODE_STATE_INIT; // set all sensors to
-        mat_decode_data[index].key_state = IDLE;
+        mat_decode_data[index].lane_state = IDLE;
         mat_decode_data[index].init_counter = 10; // number of times to stay in init state
         mat_decode_data[index].di_pos_counter = MAT_POS_DI_COUNT;
         mat_decode_data[index].di_neg_counter = MAT_NEG_DI_COUNT;
@@ -58,7 +58,7 @@ void mat_decode_process(void) {
                     } else {
                         /* consecutive decodes above positive threshold, confirmed action */
                         mat_decode_data[index].decode_state = MAT_DECODE_STATE_DETECT;
-                        mat_decode_data[index].key_state = POS_DETECT;
+                        mat_decode_data[index].lane_state = POS_DETECT;
                     }
                 } else if (mat_decode_data[index].channel_delta <= (-mat_decode_data[index].channel_neg_threshold)) {
                     /* compare against negative threshold */
@@ -68,11 +68,11 @@ void mat_decode_process(void) {
                     } else {
                         /* consecutive decodes below negative threshold, confirmed action */
                         mat_decode_data[index].decode_state = MAT_DECODE_STATE_DETECT;
-                        mat_decode_data[index].key_state = NEG_DETECT;
+                        mat_decode_data[index].lane_state = NEG_DETECT;
                     }
                 } else {
                     mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
-                    mat_decode_data[index].key_state = IDLE;
+                    mat_decode_data[index].lane_state = IDLE;
                     mat_decode_data[index].di_pos_counter = MAT_POS_DI_COUNT;
                     mat_decode_data[index].di_neg_counter = MAT_NEG_DI_COUNT;
                 }
@@ -82,30 +82,30 @@ void mat_decode_process(void) {
                 /* sensor triggered, no reference compensation */
                 mat_decode_data[index].channel_delta = (int16_t) (ptc_qtlib_node_stat1[index].node_acq_signals - mat_decode_data[index].channel_reference); // calculate delta = signal - reference
                 /* hysteresis for release */
-                if (mat_decode_data[index].key_state == POS_DETECT) {
+                if (mat_decode_data[index].lane_state == POS_DETECT) {
                     if (mat_decode_data[index].channel_delta < mat_decode_data[index].channel_pos_hysteresis) {
                         /* signal is below hysteresis value*/
-                        mat_decode_data[index].key_state = IDLE;
+                        mat_decode_data[index].lane_state = IDLE;
                         mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
                     } else {
 
                     }
-                } else if (mat_decode_data[index].key_state == NEG_DETECT) {
+                } else if (mat_decode_data[index].lane_state == NEG_DETECT) {
                     if (mat_decode_data[index].channel_delta > -mat_decode_data[index].channel_neg_hysteresis) {
                         /* signal is above hysteresis value */
-                        mat_decode_data[index].key_state = IDLE;
+                        mat_decode_data[index].lane_state = IDLE;
                         mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
                     } else{
                         
                     }
                 } else {
-                    mat_decode_data[index].key_state = IDLE;
+                    mat_decode_data[index].lane_state = IDLE;
                     mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
                 }
                 break;
                 
             default:
-                mat_decode_data[index].key_state = IDLE;
+                mat_decode_data[index].lane_state = IDLE;
                 mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
                 break;
                 

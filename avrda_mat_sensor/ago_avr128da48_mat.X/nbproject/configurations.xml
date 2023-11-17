@@ -31,6 +31,8 @@
         </logicalFolder>
         <logicalFolder name="timer" displayName="timer" projectFiles="true">
           <itemPath>mcc_generated_files/timer/rtc.h</itemPath>
+          <itemPath>mcc_generated_files/timer/timer_interface.h</itemPath>
+          <itemPath>mcc_generated_files/timer/tcb0.h</itemPath>
         </logicalFolder>
         <logicalFolder name="touch" displayName="touch" projectFiles="true">
           <logicalFolder name="datastreamer"
@@ -83,6 +85,7 @@
         <logicalFolder name="timer" displayName="timer" projectFiles="true">
           <logicalFolder name="src" displayName="src" projectFiles="true">
             <itemPath>mcc_generated_files/timer/src/rtc.c</itemPath>
+            <itemPath>mcc_generated_files/timer/src/tcb0.c</itemPath>
           </logicalFolder>
         </logicalFolder>
         <logicalFolder name="touch" displayName="touch" projectFiles="true">
@@ -392,6 +395,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/microchip/mchp_fw/20231005-aGo_Prox/avrda_mat_sensor/ago_avr128da48_mat.X/debug/default/ago_avr128da48_mat_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

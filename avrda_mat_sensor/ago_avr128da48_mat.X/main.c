@@ -39,19 +39,85 @@
 
 extern volatile uint8_t measurement_done_touch;
 
+/* enum for app state machine states */
+typedef enum {
+    APP_IDLE,
+    APP_FIRST_POS_DETECT,
+    APP_DETECT_ADD_OR_REMOVE,
+} _app_object_detect_state_t;
 
+struct shelf_data {
+    int16_t lane_object_counter[DEF_NUM_CHANNELS];
+    int32_t tmr_delay_to_check_object_status[DEF_NUM_CHANNELS];
+    _app_object_detect_state_t app_object_detect_state[DEF_NUM_CHANNELS];
+};
+
+void app_timer_event_count(void) {
+    /* loop all sensors */
+    /* if state is active, decrement counter */
+    /* prevent overflow of counter register */
+    /* reload counter once serviced */
+}
+/**********************************/
+/*** MAIN *************************/
+/**********************************/
 int main(void) {
     uint8_t index;
 
     SYSTEM_Initialize();
-    
+
     AGO_mat_decode_init();
 
+    TCB0_OverflowCallbackRegister(app_timer_event_count);
+
     while (1) {
-        touch_process();        // measure and decode all sensor lines
-        
+        touch_process(); // measure and decode all sensor lines
+
         if (measurement_done_touch == 1) {
             measurement_done_touch = 0;
+#if 0
+            /* PROCESS */
+            /* check sensor status of all channels */
+            /* wait 500ms to wait for associate to stop touching */
+            /* is key state added or removed */
+            /* count up or down lane value */
+            /* calibrate sensor */
+            /* return */
+            /* /PROCESS */
+
+            /* check sensor status of all channels */
+            for (index = 0; index < DEF_NUM_CHANNELS; index++) {
+                /* was a sensor activated */
+                switch (shelf_data.app_object_detect_state[index]) {
+                    case APP_IDLE:
+                        /* look for positive detection */
+                        /* ? if neg detection, reset states? */
+                        switch (mat_decode_data[index].decode_state) {
+                            case IDLE:
+                                /* do nothing */
+                                break;
+                            case POS_DETECT:
+                                break;
+                            case NEG_DETECT:
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    case APP_FIRST_POS_DETECT:
+                        break;
+                    case APP_DETECT_ADD_OR_REMOVE:
+                        break;
+                    default:
+                        break;
+                }
+
+
+
+
+            }
+#endif
+            
         }
 
         /*Push button calibration operation*/

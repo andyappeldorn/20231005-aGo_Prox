@@ -176,7 +176,7 @@ void mat_datastreamer_output(void)
 
 #endif
 		/* State */
-        u8temp_output = mat_decode_data[count_bytes_out].key_state;
+        u8temp_output = mat_decode_data[count_bytes_out].lane_state;
         if(u8temp_output == IDLE){
             datastreamer_transmit(0x01);
         }

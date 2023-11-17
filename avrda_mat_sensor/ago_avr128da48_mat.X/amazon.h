@@ -50,7 +50,7 @@
 #define SENSOR_CSD 10
 
 /* Digital Oversampling can be FILTER_LEVEL_1, 2, 4, 8, 16, 32, 64 */
-#define COMMON_FILTER_LEVEL FILTER_LEVEL_32     // 
+#define COMMON_FILTER_LEVEL FILTER_LEVEL_16     // 
 
 #define MAT_POS_THRESHOLD   50
 #define MAT_POS_HYSTERESIS  5

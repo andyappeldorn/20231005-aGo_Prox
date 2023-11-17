@@ -38,6 +38,7 @@ void SYSTEM_Initialize(void)
     CLOCK_Initialize();
     PIN_MANAGER_Initialize();
     RTC_Initialize();
+    TCB0_Initialize();
     USART1_Initialize();
     touch_init();
     CPUINT_Initialize();
