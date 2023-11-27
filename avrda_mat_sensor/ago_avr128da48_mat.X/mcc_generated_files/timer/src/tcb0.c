@@ -38,7 +38,7 @@ const struct TMR_INTERFACE TCB0_Interface = {
     .Stop = TCB0_Stop,
     .PeriodCountSet = TCB0_Write,
     .TimeoutCallbackRegister = NULL,
-    .Tasks = TCB0_Tasks
+    .Tasks = NULL
 };
 
 void (*TCB0_OVF_isr_cb)(void) = NULL;
@@ -55,11 +55,28 @@ void TCB0_CaptureCallbackRegister(TCB0_cb_t cb)
 	TCB0_CAPT_isr_cb = cb;
 }
 
+ISR(TCB0_INT_vect)
+{
+	/* Insert your TCB interrupt handling code */
+	/**
+	 * The interrupt flag is cleared by writing 1 to it, or when the Capture register
+	 * is read in Capture mode
+	 */
+	if(TCB0.INTFLAGS & TCB_CAPT_bm)
+    {
+        if (TCB0_CAPT_isr_cb != NULL)
+        {
+            (*TCB0_CAPT_isr_cb)();
+        }
+
+        TCB0.INTFLAGS = TCB_CAPT_bm;
+    }
+}
 
 void TCB0_Initialize(void)
 {
-    // CCMP 24000; 
-    TCB0.CCMP = 0x5DC0;
+    // CCMP 12000; 
+    TCB0.CCMP = 0x2EE0;
 
     // CNT 0; 
     TCB0.CNT = 0x0;
@@ -73,8 +90,8 @@ void TCB0_Initialize(void)
     //CAPTEI disabled; EDGE disabled; FILTER disabled; 
     TCB0.EVCTRL = 0x0;
 
-    //CAPT disabled; OVF disabled; 
-    TCB0.INTCTRL = 0x0;
+    //CAPT enabled; OVF disabled; 
+    TCB0.INTCTRL = 0x1;
 
     //CAPT disabled; OVF disabled; 
     TCB0.INTFLAGS = 0x0;
@@ -82,8 +99,8 @@ void TCB0_Initialize(void)
     //Temporary Value
     TCB0.TEMP = 0x0;
 
-    //CASCADE disabled; CLKSEL DIV1; ENABLE enabled; RUNSTDBY disabled; SYNCUPD disabled; 
-    TCB0.CTRLA = 0x1;
+    //CASCADE disabled; CLKSEL DIV2; ENABLE enabled; RUNSTDBY disabled; SYNCUPD disabled; 
+    TCB0.CTRLA = 0x3;
 
 }
 
@@ -162,33 +179,3 @@ inline bool TCB0_IsOvfInterruptEnabled(void)
     return ((TCB0.INTCTRL & TCB_OVF_bm) > 0);
 }
 
-
-void TCB0_Tasks(void)
-{
-	/**
-	 * The interrupt flag is cleared by writing 1 to it, or when the Capture register
-	 * is read in Capture mode
-	 */
-	if(TCB0.INTFLAGS & TCB_CAPT_bm)
-    {
-        if (TCB0_CAPT_isr_cb != NULL)
-        {
-            (*TCB0_CAPT_isr_cb)();
-        }
-
-        TCB0.INTFLAGS = TCB_CAPT_bm;
-    }
-
-    /**
-	 * The Overflow interrupt flag is cleared by writing 1 to it.
-	 */
-	if(TCB0.INTFLAGS & TCB_OVF_bm)
-    {
-        if (TCB0_OVF_isr_cb != NULL)
-        {
-            (*TCB0_OVF_isr_cb)();
-        }
-
-        TCB0.INTFLAGS = TCB_OVF_bm;
-    }
-}

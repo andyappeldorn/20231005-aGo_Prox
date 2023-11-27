@@ -61,6 +61,7 @@
       <itemPath>touch_iir.h</itemPath>
       <itemPath>amazon.h</itemPath>
       <itemPath>mat_decode.h</itemPath>
+      <itemPath>app_object_counter.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -111,6 +112,7 @@
       <itemPath>main.c</itemPath>
       <itemPath>touch_iir.c</itemPath>
       <itemPath>mat_decode.c</itemPath>
+      <itemPath>app_object_counter.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -326,6 +328,8 @@
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="0-ffff"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/microchip/mchp_fw/20231005-aGo_Prox/avrda_mat_sensor/ago_avr128da48_mat.X/debug/default/ago_avr128da48_mat_ptg"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"

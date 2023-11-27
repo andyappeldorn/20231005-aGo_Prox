@@ -42,6 +42,7 @@
 #include "../../system/system.h"
 #include "../../../mat_decode.h"
 #include "../../../amazon.h"
+#include "../../../app_object_counter.h"
 
 #if (DEF_TOUCH_DATA_STREAMER_ENABLE == 1u)
 
@@ -212,7 +213,11 @@ void mat_datastreamer_output(void)
         temp_int_calc = (int16_t)(-mat_decode_data[count_bytes_out].channel_neg_hysteresis);
 		datastreamer_transmit((uint8_t)temp_int_calc);
 		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
-        
+
+        /* Object counter values */
+        temp_int_calc = (int16_t) (shelf_data[count_bytes_out].lane_object_counter);
+        datastreamer_transmit((uint8_t) temp_int_calc);
+        datastreamer_transmit((uint8_t) (temp_int_calc >> 8u));
 	}
 
 #if (SCROLLER_MODULE_OUTPUT == 1)
@@ -259,7 +264,7 @@ void mat_datastreamer_output(void)
 
 	/* Other Debug Parameters */
 	datastreamer_transmit(module_error_code);
-
+    
 	/* Frame End */
 	datastreamer_transmit(sequence++);
 
