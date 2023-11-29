@@ -11,7 +11,6 @@ B,8,1,DecodeState0
 -D,10,1,PosHysteresis0
 -D,11,1,NegThreshold0
 -D,12,1,NegHysteresis0
--D,13,1,ObjectCount0
 
 D,2,2,Signal1
 D,3,2,Reference1
@@ -23,7 +22,6 @@ B,8,2,DecodeState1
 -D,10,2,PosHysteresis1
 -D,11,2,NegThreshold1
 -D,12,2,NegHysteresis1
--D,13,2,ObjectCount1
 
 D,2,3,Signal2
 D,3,3,Reference2
@@ -35,7 +33,6 @@ B,8,3,DecodeState2
 -D,10,3,PosHysteresis2
 -D,11,3,NegThreshold2
 -D,12,3,NegHysteresis2
--D,13,3,ObjectCount2
 
 D,2,4,Signal3
 D,3,4,Reference3
@@ -47,7 +44,6 @@ B,8,4,DecodeState3
 -D,10,4,PosHysteresis3
 -D,11,4,NegThreshold3
 -D,12,4,NegHysteresis3
--D,13,4,ObjectCount3
 
 D,2,5,Signal4
 D,3,5,Reference4
@@ -59,7 +55,6 @@ B,8,5,DecodeState4
 -D,10,5,PosHysteresis4
 -D,11,5,NegThreshold4
 -D,12,5,NegHysteresis4
--D,13,5,ObjectCount4
 
 D,2,6,Signal5
 D,3,6,Reference5
@@ -71,7 +66,6 @@ B,8,6,DecodeState5
 -D,10,6,PosHysteresis5
 -D,11,6,NegThreshold5
 -D,12,6,NegHysteresis5
--D,13,6,ObjectCount5
 
 D,2,7,Signal6
 D,3,7,Reference6
@@ -83,7 +77,6 @@ B,8,7,DecodeState6
 -D,10,7,PosHysteresis6
 -D,11,7,NegThreshold6
 -D,12,7,NegHysteresis6
--D,13,7,ObjectCount6
 
 D,2,8,Signal7
 D,3,8,Reference7
@@ -95,7 +88,6 @@ B,8,8,DecodeState7
 -D,10,8,PosHysteresis7
 -D,11,8,NegThreshold7
 -D,12,8,NegHysteresis7
--D,13,8,ObjectCount7
 
 D,2,9,Signal8
 D,3,9,Reference8
@@ -107,7 +99,6 @@ B,8,9,DecodeState8
 -D,10,9,PosHysteresis8
 -D,11,9,NegThreshold8
 -D,12,9,NegHysteresis8
--D,13,9,ObjectCount8
 
 D,2,10,Signal9
 D,3,10,Reference9
@@ -119,9 +110,38 @@ B,8,10,DecodeState9
 -D,10,10,PosHysteresis9
 -D,11,10,NegThreshold9
 -D,12,10,NegHysteresis9
--D,13,10,ObjectCount9
-
 
 B,1,3,QTouchLibError
+
+-D,2,11,ObjectCount0
+B,1,1,AppState0
+D,1,1,ElapsedTime0
+-D,3,11,ObjectCount1
+B,1,1,AppState1
+D,1,1,ElapsedTime1
+-D,4,11,ObjectCount2
+B,1,1,AppState2
+D,1,1,ElapsedTime2
+-D,5,11,ObjectCount3
+B,1,1,AppState3
+D,1,1,ElapsedTime3
+-D,6,11,ObjectCount4
+B,1,1,AppState4
+D,1,1,ElapsedTime4
+-D,7,11,ObjectCount5
+B,1,1,AppState5
+D,1,1,ElapsedTime5
+-D,8,11,ObjectCount6
+B,1,1,AppState6
+D,1,1,ElapsedTime6
+-D,9,11,ObjectCount7
+B,1,1,AppState7
+D,1,1,ElapsedTime7
+-D,10,11,ObjectCount8
+B,1,1,AppState8
+D,1,1,ElapsedTime8
+-D,11,11,ObjectCount9
+B,1,1,AppState9
+D,1,1,ElapsedTime9
 
 B,1,2,FRAME_END

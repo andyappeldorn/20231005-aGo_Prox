@@ -23,9 +23,9 @@ extern "C" {
     } _mat_decode_process_state;
 
     typedef enum {
+        NEG_DETECT,
         IDLE,
-        POS_DETECT,
-        NEG_DETECT
+        POS_DETECT
     } _mat_lane_detect_state;
     
 
@@ -46,7 +46,8 @@ extern "C" {
 
     extern volatile _mat_decode_data_t mat_decode_data[DEF_NUM_SENSORS];
     
-    void AGO_mat_decode_init(void);
+    void mat_decode_init_sensor(uint8_t index);
+    void mat_decode_init_all_sensors(void);
     void mat_decode_process(void);
 
 #ifdef	__cplusplus

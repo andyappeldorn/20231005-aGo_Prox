@@ -99,8 +99,8 @@ void TCB0_Initialize(void)
     //Temporary Value
     TCB0.TEMP = 0x0;
 
-    //CASCADE disabled; CLKSEL DIV2; ENABLE enabled; RUNSTDBY disabled; SYNCUPD disabled; 
-    TCB0.CTRLA = 0x3;
+    //CASCADE disabled; CLKSEL DIV2; ENABLE disabled; RUNSTDBY disabled; SYNCUPD disabled; 
+    TCB0.CTRLA = 0x2;
 
 }
 

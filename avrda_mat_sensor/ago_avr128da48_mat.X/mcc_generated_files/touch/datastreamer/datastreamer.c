@@ -178,16 +178,17 @@ void mat_datastreamer_output(void)
 #endif
 		/* State */
         u8temp_output = mat_decode_data[count_bytes_out].lane_state;
-        if(u8temp_output == IDLE){
-            datastreamer_transmit(0x01);
-        }
-        else if(u8temp_output == POS_DETECT)
-        {
-            datastreamer_transmit(0x02);
-        }
-        else if(u8temp_output == NEG_DETECT){
-            datastreamer_transmit(0x00);
-        }
+        datastreamer_transmit(u8temp_output);
+//        if(u8temp_output == IDLE){
+//            datastreamer_transmit(0x01);
+//        }
+//        else if(u8temp_output == POS_DETECT)
+//        {
+//            datastreamer_transmit(0x02);
+//        }
+//        else if(u8temp_output == NEG_DETECT){
+//            datastreamer_transmit(0x00);
+//        }
         
         /* Decode State */
         u8temp_output = mat_decode_data[count_bytes_out].decode_state;
@@ -213,11 +214,6 @@ void mat_datastreamer_output(void)
         temp_int_calc = (int16_t)(-mat_decode_data[count_bytes_out].channel_neg_hysteresis);
 		datastreamer_transmit((uint8_t)temp_int_calc);
 		datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
-
-        /* Object counter values */
-        temp_int_calc = (int16_t) (shelf_data[count_bytes_out].lane_object_counter);
-        datastreamer_transmit((uint8_t) temp_int_calc);
-        datastreamer_transmit((uint8_t) (temp_int_calc >> 8u));
 	}
 
 #if (SCROLLER_MODULE_OUTPUT == 1)
@@ -264,6 +260,23 @@ void mat_datastreamer_output(void)
 
 	/* Other Debug Parameters */
 	datastreamer_transmit(module_error_code);
+    
+    /* object counter application values */
+    for (count_bytes_out = 0u; count_bytes_out < DEF_NUM_CHANNELS; count_bytes_out++) {
+        /* Object counter values */
+        temp_int_calc = (int16_t) (shelf_data[count_bytes_out].lane_object_counter);
+        datastreamer_transmit((uint8_t) temp_int_calc);
+        datastreamer_transmit((uint8_t) (temp_int_calc >> 8u));
+        
+        /* Object counter state machine detection state */
+        u8temp_output = shelf_data[count_bytes_out].app_object_detect_state;
+		datastreamer_transmit(u8temp_output);
+        
+        /* elapsed time */
+        temp_int_calc = shelf_data[count_bytes_out].tmr_elapsed_time;
+        datastreamer_transmit((uint8_t) temp_int_calc);
+        datastreamer_transmit((uint8_t) (temp_int_calc >> 8u));
+    }
     
 	/* Frame End */
 	datastreamer_transmit(sequence++);

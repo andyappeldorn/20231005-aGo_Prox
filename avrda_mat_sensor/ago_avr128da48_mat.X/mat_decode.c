@@ -2,19 +2,23 @@
 
 volatile _mat_decode_data_t mat_decode_data[DEF_NUM_SENSORS];
 
-void AGO_mat_decode_init(void) {
+void mat_decode_init_sensor(uint8_t index) {
+    mat_decode_data[index].decode_state = MAT_DECODE_STATE_INIT; // set all sensors to
+    mat_decode_data[index].lane_state = IDLE;
+    mat_decode_data[index].init_counter = 10; // number of times to stay in init state
+    mat_decode_data[index].di_pos_counter = MAT_POS_DI_COUNT;
+    mat_decode_data[index].di_neg_counter = MAT_NEG_DI_COUNT;
+    mat_decode_data[index].channel_pos_threshold = MAT_POS_THRESHOLD;
+    mat_decode_data[index].channel_pos_hysteresis = MAT_POS_THRESHOLD - MAT_POS_HYSTERESIS;
+    mat_decode_data[index].channel_neg_threshold = MAT_NEG_THRESHOLD;
+    mat_decode_data[index].channel_neg_hysteresis = MAT_NEG_THRESHOLD - MAT_NEG_HYSTERESIS;
+}
+
+void mat_decode_init_all_sensors(void) {
     /* set all sensor mat decode states to INIT */
     uint8_t index;
     for (index = 0; index < DEF_NUM_CHANNELS; index++) {
-        mat_decode_data[index].decode_state = MAT_DECODE_STATE_INIT; // set all sensors to
-        mat_decode_data[index].lane_state = IDLE;
-        mat_decode_data[index].init_counter = 10; // number of times to stay in init state
-        mat_decode_data[index].di_pos_counter = MAT_POS_DI_COUNT;
-        mat_decode_data[index].di_neg_counter = MAT_NEG_DI_COUNT;
-        mat_decode_data[index].channel_pos_threshold = MAT_POS_THRESHOLD;
-        mat_decode_data[index].channel_pos_hysteresis = MAT_POS_THRESHOLD - MAT_POS_HYSTERESIS;
-        mat_decode_data[index].channel_neg_threshold = MAT_NEG_THRESHOLD;
-        mat_decode_data[index].channel_neg_hysteresis = MAT_NEG_THRESHOLD - MAT_NEG_HYSTERESIS;
+        mat_decode_init_sensor(index);
     }
 }
 
@@ -33,7 +37,7 @@ void mat_decode_process(void) {
                     mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
                 }
                 break;
-                
+
             case (MAT_DECODE_STATE_MEASURE):
                 /* adjust reference drift */
                 if (mat_decode_data[index].channel_reference < ptc_qtlib_node_stat1[index].node_acq_signals) {
@@ -77,7 +81,7 @@ void mat_decode_process(void) {
                     mat_decode_data[index].di_neg_counter = MAT_NEG_DI_COUNT;
                 }
                 break;
-                
+
             case (MAT_DECODE_STATE_DETECT):
                 /* sensor triggered, no reference compensation */
                 mat_decode_data[index].channel_delta = (int16_t) (ptc_qtlib_node_stat1[index].node_acq_signals - mat_decode_data[index].channel_reference); // calculate delta = signal - reference
@@ -88,27 +92,27 @@ void mat_decode_process(void) {
                         mat_decode_data[index].lane_state = IDLE;
                         mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
                     } else {
-
+                        /* timeout? */
                     }
                 } else if (mat_decode_data[index].lane_state == NEG_DETECT) {
                     if (mat_decode_data[index].channel_delta > -mat_decode_data[index].channel_neg_hysteresis) {
                         /* signal is above hysteresis value */
                         mat_decode_data[index].lane_state = IDLE;
                         mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
-                    } else{
-                        
+                    } else {
+                        /* timeout? */
                     }
                 } else {
                     mat_decode_data[index].lane_state = IDLE;
                     mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
                 }
                 break;
-                
+
             default:
                 mat_decode_data[index].lane_state = IDLE;
                 mat_decode_data[index].decode_state = MAT_DECODE_STATE_MEASURE;
                 break;
-                
+
         }
     }
 }

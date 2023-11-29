@@ -52,24 +52,26 @@ int main(void) {
 
     SYSTEM_Initialize();
 
-    AGO_mat_decode_init();
+    mat_decode_init_all_sensors();
+    object_counter_process_init();
 
     TCB0_CaptureCallbackRegister(app_timer_event_count);
-    
+    TCB0_Start(); // start timer
+
     while (1) {
         touch_process(); // measure and decode all sensor lines
-
+        object_counter_process();
+        
         if (measurement_done_touch == 1) {
             measurement_done_touch = 0;
-            object_counter_process();
-
         }
 
         /*Push button calibration operation*/
         if (Button_GetValue() == 0) {
             for (index = 0; index < DEF_NUM_CHANNELS; index++) {
                 calibrate_node(index);
-                AGO_mat_decode_init();
+                mat_decode_init_all_sensors();
+                object_counter_process_init();
             }
         }
     }
