@@ -9,16 +9,6 @@ volatile uint16_t app_tmr_ms_counter;
 
 void app_timer_event_count(void) {
     app_tmr_ms_counter++;
-
-    //    uint8_t index;
-    //
-    //    for (index = 0; index < DEF_NUM_CHANNELS; index++) {
-    //        shelf_data[index].tmr_touched_object_event_time++;
-    //    }
-    /* loop all sensors */
-    /* if state is active, decrement counter */
-    /* prevent overflow of counter register */
-    /* reload counter once serviced */
 }
 
 uint16_t app_get_current_time(void) {
@@ -36,8 +26,10 @@ uint16_t app_get_elapsed_time(uint16_t past_time) {
     current_time = app_tmr_ms_counter;
 
     if (current_time > past_time) {
+        /* ms counter was within the max value */
         elapsed_time = current_time - past_time;
     } else if (current_time < past_time) {
+        /* ms counter exceeded max value, rolled over */
         elapsed_time = current_time + (0xFFFF - past_time);
     }
     return elapsed_time;
@@ -52,33 +44,20 @@ void object_counter_process_init(void) {
     }
 }
 
+/* object_counter_process() */
 void object_counter_process(void) {
-    /* PROCESS */
-    /* check sensor status of all channels */
-    /* wait 500ms to wait for associate to stop touching */
-    /* is key state added or removed */
-    /* count up or down lane value */
-    /* calibrate sensor */
-    /* return */
-    /* /PROCESS */
     uint8_t index;
-    uint16_t elapsed_time;
-    uint8_t trap = 0;
+
     /* check sensor status of all channels */
     for (index = 0; index < DEF_NUM_CHANNELS; index++) {
         /* was a sensor activated */
         switch (shelf_data[index].app_object_detect_state) {
             case APP_IDLE:
                 /* look for positive detection */
-                /* ? if neg detection, reset states? */
-
                 if (mat_decode_data[index].lane_state == IDLE) {
                     /* do nothing */
-                    /* do we ever hit this? */
-                    shelf_data[index].tmr_touched_object_event_time = app_get_current_time(); // get current time of touch event
                 } else if (mat_decode_data[index].lane_state == POS_DETECT) {
-                    /* positive change was detected,
-                     * user touched object on lane sensor
+                    /* positive change was detected, user touched object on lane sensor
                      * save time of object touch action */
                     shelf_data[index].tmr_touched_object_event_time = app_get_current_time(); // get current time of touch event
                     shelf_data[index].tmr_elapsed_time = 0; // init elapsed time
@@ -86,23 +65,23 @@ void object_counter_process(void) {
                 } else if (mat_decode_data[index].lane_state == NEG_DETECT) {
                     /* do nothing */
                     /* reset state machine? */
-                    shelf_data[index].tmr_elapsed_time = app_get_elapsed_time(shelf_data[index].tmr_touched_object_event_time);
-                    if (shelf_data[index].tmr_elapsed_time > 5000) {
-                        /* sensor reset process */
-                        calibrate_node(index); // re-calibrate cc cap for lane sensor
-                        mat_decode_init_sensor(index);
-                        shelf_data[index].app_object_detect_state = APP_IDLE;
-                    }
+                    /* unclear if this is the correct action in this scenario */
+                    //                    shelf_data[index].tmr_elapsed_time = app_get_elapsed_time(shelf_data[index].tmr_touched_object_event_time);
+                    //                    if (shelf_data[index].tmr_elapsed_time > 5000) {
+                    //                        /* sensor reset process */
+                    //                        calibrate_node(index); // re-calibrate cc cap for lane sensor
+                    //                        mat_decode_init_sensor(index);
+                    //                        shelf_data[index].app_object_detect_state = APP_IDLE;
+                    //                    }
                 } else {
                     /* do nothing */
-                    /* reset state machine? */
                 }
 
                 break;
             case APP_FIRST_POS_DETECT:
                 /* wait for elapsed time */
                 shelf_data[index].tmr_elapsed_time = app_get_elapsed_time(shelf_data[index].tmr_touched_object_event_time);
-                if (shelf_data[index].tmr_elapsed_time > 1000) {
+                if (shelf_data[index].tmr_elapsed_time > 800) {
                     shelf_data[index].app_object_detect_state = APP_DETECT_ADD_OR_REMOVE;
                 }
 
@@ -111,10 +90,10 @@ void object_counter_process(void) {
                 /* check lane state */
                 if (mat_decode_data[index].lane_state == POS_DETECT) {
                     /* positive change was detected */
-                    shelf_data[index].lane_object_counter++;
+                    shelf_data[index].lane_object_counter++; // increment object counter
                 } else if (mat_decode_data[index].lane_state == NEG_DETECT) {
                     /* negative change was detected */
-                    shelf_data[index].lane_object_counter--;
+                    shelf_data[index].lane_object_counter--; // decrement object counter
                 } else {
                     /* no change detected, reset app state to idle */
                     shelf_data[index].app_object_detect_state = APP_IDLE;
@@ -126,22 +105,17 @@ void object_counter_process(void) {
             case APP_WAIT_FOR_CALIBRATE:
                 /* wait time to calibrate for user to release object */
                 shelf_data[index].tmr_elapsed_time = app_get_elapsed_time(shelf_data[index].tmr_touched_object_event_time);
-                if (shelf_data[index].tmr_elapsed_time > 2500) {
+                if (shelf_data[index].tmr_elapsed_time > 1500) {
                     /* sensor reset process */
-                    calibrate_node(index); // re-calibrate cc cap for lane sensor
-                    mat_decode_init_sensor(index);
+                    calibrate_node(index); // re-calibrate cc cap for sensor
+                    mat_decode_init_sensor(index); // init decode state and values for sensor
                     shelf_data[index].app_object_detect_state = APP_IDLE;
                 }
 
                 break;
             default:
-                trap = 1;
-                //                shelf_data[index].app_object_detect_state = APP_IDLE;
+                NOP();
                 break;
         }
-        if (trap > 0) {
-            NOP();
-        }
-
     }
 }

@@ -291,7 +291,7 @@ void touch_process(void)
                 qtm_error_callback(1);
         }
             mat_decode_process();
-            time_to_measure_touch_flag = 1u;
+//            time_to_measure_touch_flag = 1u;
 //            touch_ret = qtm_key_sensors_process(&qtlib_key_set1);
 //            if (TOUCH_SUCCESS != touch_ret) {
 //                qtm_error_callback(2);

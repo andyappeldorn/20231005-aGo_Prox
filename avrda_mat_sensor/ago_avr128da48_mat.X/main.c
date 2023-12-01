@@ -33,6 +33,7 @@
 #include "mcc_generated_files/system/system.h"
 #include "mat_decode.h"
 #include "app_object_counter.h"
+#include "mcc_generated_files/touch/example/touch_example.h"
 
 /*
     Main application
@@ -60,10 +61,10 @@ int main(void) {
 
     while (1) {
         touch_process(); // measure and decode all sensor lines
-        object_counter_process();
-        
-        if (measurement_done_touch == 1) {
-            measurement_done_touch = 0;
+
+        if (time_to_measure_touch_flag == 0) {
+            object_counter_process();
+            time_to_measure_touch_flag = 1;
         }
 
         /*Push button calibration operation*/
