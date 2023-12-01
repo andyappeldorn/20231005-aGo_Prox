@@ -62,7 +62,7 @@ int main(void) {
     while (1) {
         touch_process(); // measure and decode all sensor lines
 
-        if (time_to_measure_touch_flag == 0) {
+        if (time_to_measure_touch_flag == 0) {  // sync object counter process with acquisition/decoded processes
             object_counter_process();
             time_to_measure_touch_flag = 1;
         }

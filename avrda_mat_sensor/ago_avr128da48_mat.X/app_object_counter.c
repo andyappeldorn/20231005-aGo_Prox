@@ -105,7 +105,7 @@ void object_counter_process(void) {
             case APP_WAIT_FOR_CALIBRATE:
                 /* wait time to calibrate for user to release object */
                 shelf_data[index].tmr_elapsed_time = app_get_elapsed_time(shelf_data[index].tmr_touched_object_event_time);
-                if (shelf_data[index].tmr_elapsed_time > 1500) {
+                if (shelf_data[index].tmr_elapsed_time > 1000) {
                     /* sensor reset process */
                     calibrate_node(index); // re-calibrate cc cap for sensor
                     mat_decode_init_sensor(index); // init decode state and values for sensor
