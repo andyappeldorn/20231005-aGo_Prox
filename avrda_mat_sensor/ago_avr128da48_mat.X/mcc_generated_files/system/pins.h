@@ -304,25 +304,6 @@
 #define Button_EnableInterruptForLowLevelSensing() do { PORTC.PIN7CTRL = (PORTC.PIN7CTRL & ~PORT_ISC_gm) | 0x5 ; } while(0)
 #define PC7_SetInterruptHandler Button_SetInterruptHandler
 
-//get/set IO_DBG aliases
-#define IO_DBG_SetHigh() do { PORTC_OUTSET = 0x40; } while(0)
-#define IO_DBG_SetLow() do { PORTC_OUTCLR = 0x40; } while(0)
-#define IO_DBG_Toggle() do { PORTC_OUTTGL = 0x40; } while(0)
-#define IO_DBG_GetValue() (VPORTC.IN & (0x1 << 6))
-#define IO_DBG_SetDigitalInput() do { PORTC_DIRCLR = 0x40; } while(0)
-#define IO_DBG_SetDigitalOutput() do { PORTC_DIRSET = 0x40; } while(0)
-#define IO_DBG_SetPullUp() do { PORTC_PIN6CTRL  |= PORT_PULLUPEN_bm; } while(0)
-#define IO_DBG_ResetPullUp() do { PORTC_PIN6CTRL  &= ~PORT_PULLUPEN_bm; } while(0)
-#define IO_DBG_SetInverted() do { PORTC_PIN6CTRL  |= PORT_INVEN_bm; } while(0)
-#define IO_DBG_ResetInverted() do { PORTC_PIN6CTRL  &= ~PORT_INVEN_bm; } while(0)
-#define IO_DBG_DisableInterruptOnChange() do { PORTC.PIN6CTRL = (PORTC.PIN6CTRL & ~PORT_ISC_gm) | 0x0 ; } while(0)
-#define IO_DBG_EnableInterruptForBothEdges() do { PORTC.PIN6CTRL = (PORTC.PIN6CTRL & ~PORT_ISC_gm) | 0x1 ; } while(0)
-#define IO_DBG_EnableInterruptForRisingEdge() do { PORTC.PIN6CTRL = (PORTC.PIN6CTRL & ~PORT_ISC_gm) | 0x2 ; } while(0)
-#define IO_DBG_EnableInterruptForFallingEdge() do { PORTC.PIN6CTRL = (PORTC.PIN6CTRL & ~PORT_ISC_gm) | 0x3 ; } while(0)
-#define IO_DBG_DisableDigitalInputBuffer() do { PORTC.PIN6CTRL = (PORTC.PIN6CTRL & ~PORT_ISC_gm) | 0x4 ; } while(0)
-#define IO_DBG_EnableInterruptForLowLevelSensing() do { PORTC.PIN6CTRL = (PORTC.PIN6CTRL & ~PORT_ISC_gm) | 0x5 ; } while(0)
-#define PC6_SetInterruptHandler IO_DBG_SetInterruptHandler
-
 /**
  * @ingroup  pinsdriver
  * @brief GPIO and peripheral I/O initialization
@@ -624,25 +605,4 @@ void Button_DefaultInterruptHandler(void);
  * @return none
  */
 void Button_SetInterruptHandler(void (* interruptHandler)(void)) ; 
-
-/**
- * @ingroup  pinsdriver
- * @brief Default Interrupt Handler for IO_DBG pin. 
- *        This is a predefined interrupt handler to be used together with the IO_DBG_SetInterruptHandler() method.
- *        This handler is called every time the IO_DBG ISR is executed. 
- * @pre PIN_MANAGER_Initialize() has been called at least once
- * @param none
- * @return none
- */
-void IO_DBG_DefaultInterruptHandler(void);
-
-/**
- * @ingroup  pinsdriver
- * @brief Interrupt Handler Setter for IO_DBG pin input-sense-config functionality.
- *        Allows selecting an interrupt handler for IO_DBG at application runtime
- * @pre PIN_MANAGER_Initialize() has been called at least once
- * @param InterruptHandler function pointer.
- * @return none
- */
-void IO_DBG_SetInterruptHandler(void (* interruptHandler)(void)) ; 
 #endif /* PINS_H_INCLUDED */

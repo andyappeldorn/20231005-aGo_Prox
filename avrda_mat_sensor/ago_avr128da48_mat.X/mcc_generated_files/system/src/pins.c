@@ -48,14 +48,13 @@ static void (*Pin_S8_InterruptHandler)(void);
 static void (*Pin_S7_InterruptHandler)(void);
 static void (*Pin_DS_InterruptHandler)(void);
 static void (*Button_InterruptHandler)(void);
-static void (*IO_DBG_InterruptHandler)(void);
 
 void PIN_MANAGER_Initialize()
 {
   /* DIR Registers Initialization */
     PORTA.DIR = 0x0;
     PORTB.DIR = 0x0;
-    PORTC.DIR = 0x41;
+    PORTC.DIR = 0x1;
     PORTD.DIR = 0x0;
     PORTE.DIR = 0x0;
     PORTF.DIR = 0x0;
@@ -63,7 +62,7 @@ void PIN_MANAGER_Initialize()
   /* OUT Registers Initialization */
     PORTA.OUT = 0x0;
     PORTB.OUT = 0x0;
-    PORTC.OUT = 0x41;
+    PORTC.OUT = 0x1;
     PORTD.OUT = 0x0;
     PORTE.OUT = 0x0;
     PORTF.OUT = 0x0;
@@ -91,7 +90,7 @@ void PIN_MANAGER_Initialize()
     PORTC.PIN3CTRL = 0x0;
     PORTC.PIN4CTRL = 0x0;
     PORTC.PIN5CTRL = 0x0;
-    PORTC.PIN6CTRL = 0x8;
+    PORTC.PIN6CTRL = 0x0;
     PORTC.PIN7CTRL = 0x8;
     PORTD.PIN0CTRL = 0x4;
     PORTD.PIN1CTRL = 0x4;
@@ -148,7 +147,6 @@ void PIN_MANAGER_Initialize()
     Pin_S7_SetInterruptHandler(Pin_S7_DefaultInterruptHandler);
     Pin_DS_SetInterruptHandler(Pin_DS_DefaultInterruptHandler);
     Button_SetInterruptHandler(Button_DefaultInterruptHandler);
-    IO_DBG_SetInterruptHandler(IO_DBG_DefaultInterruptHandler);
 }
 
 /**
@@ -333,19 +331,6 @@ void Button_DefaultInterruptHandler(void)
     // add your Button interrupt custom code
     // or set custom function using Button_SetInterruptHandler()
 }
-/**
-  Allows selecting an interrupt handler for IO_DBG at application runtime
-*/
-void IO_DBG_SetInterruptHandler(void (* interruptHandler)(void)) 
-{
-    IO_DBG_InterruptHandler = interruptHandler;
-}
-
-void IO_DBG_DefaultInterruptHandler(void)
-{
-    // add your IO_DBG interrupt custom code
-    // or set custom function using IO_DBG_SetInterruptHandler()
-}
 ISR(PORTA_PORT_vect)
 { 
     // Call the interrupt handler for the callback registered at runtime
@@ -389,10 +374,6 @@ ISR(PORTC_PORT_vect)
     if(VPORTC.INTFLAGS & PORT_INT7_bm)
     {
        Button_InterruptHandler(); 
-    }
-    if(VPORTC.INTFLAGS & PORT_INT6_bm)
-    {
-       IO_DBG_InterruptHandler(); 
     }
     /* Clear interrupt flags */
     VPORTC.INTFLAGS = 0xff;
