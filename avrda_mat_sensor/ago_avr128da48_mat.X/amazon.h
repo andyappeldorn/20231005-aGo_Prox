@@ -32,9 +32,8 @@
 #define	AMAZON_H
 
 /* select sensor and accompanied settings */
-#define USE_10CH_WHITE_SENSOR
-//#define USE_32CH_INTERPOSER_SENSOR
-
+//#define USE_10CH_WHITE_SENSOR
+#define USE_32CH_INTERPOSER_SENSOR
 
 /* white 10 channel sensor for testing for mat application */
 #ifdef USE_10CH_WHITE_SENSOR
@@ -62,11 +61,34 @@
 /* not used, will delete later */
 #define COMMON_KEY_THRESHOLD 0
 
-#endif
+#endif  /* USE_10CH_WHITE_SENSOR */
 
 #ifdef USE_32CH_INTERPOSER_SENSOR
-#error "not defined"
-#endif
+/* use the defines below to set sensor parameters */
+#define SENSOR_LEN_INCHES 48
+#define NUMBER_OF_SENSORS 16
+
+/* Common sensor defines to set all sensor params at once by changing here */
+
+/* Gain setting can be GAIN_1, GAIN_2, GAIN_4, GAIN_8, GAIN_16 */
+#define A_GAIN GAIN_1       // Analog Gain
+#define D_GAIN GAIN_4       // Digital Gain
+#define SENSOR_CSD 10
+
+/* Digital Oversampling can be FILTER_LEVEL_1, 2, 4, 8, 16, 32, 64 */
+#define COMMON_FILTER_LEVEL FILTER_LEVEL_16     // 
+
+#define MAT_POS_THRESHOLD   50
+#define MAT_POS_HYSTERESIS  5
+#define MAT_POS_DI_COUNT  3
+#define MAT_NEG_THRESHOLD   50
+#define MAT_NEG_HYSTERESIS  5
+#define MAT_NEG_DI_COUNT  3
+
+/* not used, will delete later */
+#define COMMON_KEY_THRESHOLD 0
+
+#endif  /* USE_32CH_INTERPOSER_SENSOR */
 
 #endif	/* AMAZON_H */
 

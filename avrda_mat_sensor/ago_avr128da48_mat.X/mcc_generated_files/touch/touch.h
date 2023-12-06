@@ -146,9 +146,10 @@
 }
 #endif
 
-#ifdef USE_32CH_INTERPOSER
+#ifdef USE_32CH_INTERPOSER_SENSOR
+// use pin configuration for 32 Channel Interposer Board
 #define DEF_NUM_CHANNELS (16)
-
+        
     /* Defines node parameter setting
      * {X-line, Y-line, Charge Share Delay(CSD), NODE_RSEL_PRSC(series resistor, prescaler), NODE_G(Analog Gain , Digital Gain),
      * filter level}
@@ -225,8 +226,14 @@
  * Range: 1 to 65535.
  * Default value: 1
  */
+#ifdef USE_10CH_WHITE_SENSOR
 #define DEF_NUM_SENSORS (10)
-
+#endif
+        
+#ifdef USE_32CH_INTERPOSER_SENSOR
+#define DEF_NUM_SENSORS (16)
+#endif
+        
 /* Defines Key Sensor setting
  * {Sensor Threshold, Sensor Hysterisis, Sensor AKS}
  */
@@ -270,8 +277,36 @@
 {                                                                                                              \
     COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
 }
+#ifdef USE_32CH_INTERPOSER_SENSOR
+// add 6 additional keys for Amazon 16 chan mat
+        
+#define KEY_10_PARAMS                                                                                            \
+{                                                                                                              \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
+}
+#define KEY_11_PARAMS                                                                                            \
+{                                                                                                              \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
+}
+#define KEY_12_PARAMS                                                                                            \
+{                                                                                                              \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
+}
+#define KEY_13_PARAMS                                                                                            \
+{                                                                                                              \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
+}
+#define KEY_14_PARAMS                                                                                            \
+{                                                                                                              \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
+}
+#define KEY_15_PARAMS                                                                                            \
+{                                                                                                              \
+    COMMON_KEY_THRESHOLD, HYST_25, NO_AKS_GROUP                       \
+}
+#endif        
 
-/* De-bounce counter for additional measurements to confirm touch detection
+ /* De-bounce counter for additional measurements to confirm touch detection
  * Range: 0 to 255.
  * Default value: 2.
  */
@@ -325,10 +360,6 @@
  */
 #define DEF_MAX_ON_DURATION 0
 
-
-
-
-
 /**********************************************************/
 /********* Frequency Hop Module ****************/
 /**********************************************************/
@@ -354,7 +385,7 @@
 /**********************************************************/
 /***************** IIR - Signal Filter ******************/
 /**********************************************************/
-    
+
 #define DEF_USE_TOUCH_IIR 1u    // enable filter
 extern qtm_acq_node_data_t ptc_qtlib_node_stat1[DEF_NUM_CHANNELS];
 extern qtm_touch_key_data_t qtlib_key_data_set1[DEF_NUM_SENSORS];
