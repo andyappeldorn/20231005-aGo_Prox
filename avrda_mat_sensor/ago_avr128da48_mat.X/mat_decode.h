@@ -44,7 +44,7 @@ extern "C" {
         uint8_t di_neg_counter;
     } _mat_decode_data_t;
 
-    extern volatile _mat_decode_data_t mat_decode_data[DEF_NUM_SENSORS];
+    extern volatile _mat_decode_data_t mat_decode_data[DEF_NUM_CHANNELS];
     
     void mat_decode_init_sensor(uint8_t index);
     void mat_decode_init_all_sensors(void);

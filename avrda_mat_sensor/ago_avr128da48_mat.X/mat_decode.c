@@ -1,6 +1,6 @@
 #include "mat_decode.h"
 
-volatile _mat_decode_data_t mat_decode_data[DEF_NUM_SENSORS];
+volatile _mat_decode_data_t mat_decode_data[DEF_NUM_CHANNELS];
 
 void mat_decode_init_sensor(uint8_t index) {
     mat_decode_data[index].decode_state = MAT_DECODE_STATE_INIT; // set all sensors to
