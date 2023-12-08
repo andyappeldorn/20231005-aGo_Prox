@@ -96,7 +96,13 @@ qtm_acq_node_group_config_t ptc_qtlib_acq_gen1
 qtm_acq_node_data_t ptc_qtlib_node_stat1[DEF_NUM_CHANNELS];
 
 /* Node configurations */
-qtm_acq_avr_da_node_config_t ptc_seq_node_cfg1[DEF_NUM_CHANNELS] = { NODE_0_PARAMS, NODE_1_PARAMS, NODE_2_PARAMS, NODE_3_PARAMS, NODE_4_PARAMS, NODE_5_PARAMS, NODE_6_PARAMS, NODE_7_PARAMS, NODE_8_PARAMS, NODE_9_PARAMS, NODE_10_PARAMS, NODE_11_PARAMS, NODE_12_PARAMS, NODE_13_PARAMS, NODE_14_PARAMS,NODE_15_PARAMS};
+#ifdef USE_10CH_WHITE_SENSOR
+qtm_acq_avr_da_node_config_t ptc_seq_node_cfg1[DEF_NUM_CHANNELS] = { NODE_0_PARAMS, NODE_1_PARAMS, NODE_2_PARAMS, NODE_3_PARAMS, NODE_4_PARAMS, NODE_5_PARAMS, NODE_6_PARAMS, NODE_7_PARAMS, NODE_8_PARAMS, NODE_9_PARAMS };
+#endif
+
+#ifdef USE_32CH_INTERPOSER_SENSOR
+qtm_acq_avr_da_node_config_t ptc_seq_node_cfg1[DEF_NUM_CHANNELS] = { NODE_0_PARAMS, NODE_1_PARAMS, NODE_2_PARAMS, NODE_3_PARAMS, NODE_4_PARAMS, NODE_5_PARAMS, NODE_6_PARAMS, NODE_7_PARAMS, NODE_8_PARAMS, NODE_9_PARAMS, NODE_10_PARAMS, NODE_11_PARAMS, NODE_12_PARAMS, NODE_13_PARAMS, NODE_14_PARAMS, NODE_15_PARAMS };
+#endif
 
 /* Container */
 qtm_acquisition_control_t qtlib_acq_set1 = {&ptc_qtlib_acq_gen1, &ptc_seq_node_cfg1[0], &ptc_qtlib_node_stat1[0]};
