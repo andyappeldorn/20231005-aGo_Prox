@@ -16,6 +16,7 @@ extern "C" {
     typedef enum {
         APP_IDLE,
         APP_FIRST_POS_DETECT,
+        APP_FIRST_NEG_DETECT,
         APP_DETECT_ADD_OR_REMOVE,
         APP_WAIT_FOR_CALIBRATE,
     } _app_object_detect_state_t;
