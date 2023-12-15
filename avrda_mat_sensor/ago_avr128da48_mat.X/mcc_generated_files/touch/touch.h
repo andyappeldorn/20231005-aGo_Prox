@@ -60,7 +60,7 @@
  * Range: 1 to 255.
  * Default value: 20.
  */
-#define DEF_TOUCH_MEASUREMENT_PERIOD_MS 10
+#define DEF_TOUCH_MEASUREMENT_PERIOD_MS 1
 
 /* Defines the Type of sensor
  * Default value: NODE_MUTUAL.

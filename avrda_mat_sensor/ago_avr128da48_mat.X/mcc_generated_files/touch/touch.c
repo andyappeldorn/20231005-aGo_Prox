@@ -231,7 +231,7 @@ static void qtm_error_callback(uint8_t error)
 	module_error_code = error + 1u;
 
 	#if DEF_TOUCH_DATA_STREAMER_ENABLE == 1
-	    mat_datastreamer_output();
+//	    mat_datastreamer_output_lite();
 	#endif
 }
 /*============================================================================
@@ -320,7 +320,7 @@ void touch_process(void)
 //            measurement_done_touch = 1u;
 //        }
     #if DEF_TOUCH_DATA_STREAMER_ENABLE == 1
-        mat_datastreamer_output();
+        mat_datastreamer_output_lite();
     #endif
     }
 

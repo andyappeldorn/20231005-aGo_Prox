@@ -105,7 +105,7 @@ void datastreamer_transmit(uint8_t data_byte)
 }
 
 /*============================================================================
-void datastreamer_output(void)
+void mat_datastreamer_output(void)
 ------------------------------------------------------------------------------
 Purpose: Forms the datastreamer frame based on the configured modules, Tranmits
          the frame as single packet through UART port.
@@ -271,6 +271,89 @@ void mat_datastreamer_output(void)
         /* Object counter state machine detection state */
         u8temp_output = shelf_data[count_bytes_out].app_object_detect_state;
 		datastreamer_transmit(u8temp_output);
+        
+        /* elapsed time */
+        temp_int_calc = shelf_data[count_bytes_out].tmr_elapsed_time;
+        datastreamer_transmit((uint8_t) temp_int_calc);
+        datastreamer_transmit((uint8_t) (temp_int_calc >> 8u));
+    }
+    
+	/* Frame End */
+	datastreamer_transmit(sequence++);
+
+	/* End token */
+	datastreamer_transmit(~0x55);
+}
+
+/*============================================================================
+void mat_datastreamer_output(void)
+------------------------------------------------------------------------------
+Purpose: Forms the datastreamer frame based on the configured modules, Tranmits
+         the frame as single packet through UART port.
+Input  : none
+Output : none
+Notes  :
+============================================================================*/
+void mat_datastreamer_output_lite(void)
+{
+	int16_t           i, temp_int_calc;
+	static uint8_t    sequence = 0u;
+	uint16_t          u16temp_output;
+	uint8_t           u8temp_output, send_header;
+	volatile uint16_t count_bytes_out;
+    
+	send_header = sequence & (0x0f);
+	if (send_header == 0) {
+		for (i = 0; i < sizeof(data); i++) {
+			datastreamer_transmit(data[i]);
+		}
+	}
+
+	// Start token
+	datastreamer_transmit(0x55);
+
+	// Frame Start
+	datastreamer_transmit(sequence);
+
+	for (count_bytes_out = 0u; count_bytes_out < DEF_NUM_CHANNELS; count_bytes_out++) {
+		/* Touch delta */
+		temp_int_calc = get_sensor_node_signal(count_bytes_out);
+        temp_int_calc -= mat_decode_data[count_bytes_out].channel_reference;
+		u16temp_output = (uint16_t)(temp_int_calc);
+		datastreamer_transmit((uint8_t)u16temp_output);
+		datastreamer_transmit((uint8_t)(u16temp_output >> 8u));
+
+		/* Comp Caps */
+		u16temp_output = get_sensor_cc_val(count_bytes_out);
+		datastreamer_transmit((uint8_t)u16temp_output);
+		datastreamer_transmit((uint8_t)(u16temp_output >> 8u));
+    }
+
+    /* Positive threshold */
+    temp_int_calc = (int16_t)(mat_decode_data[0].channel_pos_threshold);
+    datastreamer_transmit((uint8_t)temp_int_calc);
+    datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+    /* Positive hysteresis value */
+    temp_int_calc = (int16_t)(mat_decode_data[0].channel_pos_hysteresis);
+    datastreamer_transmit((uint8_t)temp_int_calc);
+    datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+
+    /* Negative threshold */
+    temp_int_calc = (int16_t)(-mat_decode_data[0].channel_neg_threshold);
+    datastreamer_transmit((uint8_t)temp_int_calc);
+    datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+    /* Negative hysteresis value */
+    temp_int_calc = (int16_t)(-mat_decode_data[0].channel_neg_hysteresis);
+    datastreamer_transmit((uint8_t)temp_int_calc);
+    datastreamer_transmit((uint8_t)(temp_int_calc >> 8u));
+
+    
+    /* object counter application values */
+    for (count_bytes_out = 0u; count_bytes_out < DEF_NUM_CHANNELS; count_bytes_out++) {
+        /* Object counter values */
+        temp_int_calc = (int16_t) (shelf_data[count_bytes_out].lane_object_counter);
+        datastreamer_transmit((uint8_t) temp_int_calc);
+        datastreamer_transmit((uint8_t) (temp_int_calc >> 8u));
         
         /* elapsed time */
         temp_int_calc = shelf_data[count_bytes_out].tmr_elapsed_time;
